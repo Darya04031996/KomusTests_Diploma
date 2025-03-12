@@ -17,16 +17,17 @@ public class LoginTest extends TestBase{
                 .openPage()
                 .loginWithEmailAndPassword("darya.melgunova@gmail.com", "correctPassword")
                 .checkUserIsLoggedIn();
-        .
+
     }
 
     @Test
     void incorrectPasswordTest() {
 
-        loginPage.openPage()
+        loginPage
+                .openPage()
                 .loginWithEmailAndPassword("darya.melgunova@gmail.com", "wrongPassword")
-                .checkEmailError()
-                .verifyUserStayedOnLoginPage();
+                .checkEmailError();
+        loginPage.verifyUserStayedOnLoginPage();
     }
 
     @Test
@@ -34,8 +35,8 @@ public class LoginTest extends TestBase{
         loginPage
                 .openPage()
                 .loginWithEmailAndPassword("wrongemail@gmail.com", "correctPassword")
-                .checkPasswordError()
-                .verifyUserStayedOnLoginPage();
+                .checkPasswordError();
+        loginPage.verifyUserStayedOnLoginPage();
     }
 
     @Test
