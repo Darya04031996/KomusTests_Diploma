@@ -11,7 +11,7 @@ public class LoginTest extends TestBase{
     final LoginPage loginPage = new LoginPage();
 
     @Test
-    void successfulLoginTest() {
+    public void successfulLoginTest() {
 
         loginPage
                 .openPage()
@@ -21,26 +21,26 @@ public class LoginTest extends TestBase{
     }
 
     @Test
-    void incorrectPasswordTest() {
+    public void incorrectPasswordTest() {
 
         loginPage
                 .openPage()
-                .loginWithEmailAndPassword("darya.melgunova@gmail.com", "wrongPassword")
+                .loginWithEmailAndPassword("darya.melgunova@gmail.com", "BestLife2024")
                 .checkEmailError();
         loginPage.verifyUserStayedOnLoginPage();
     }
 
     @Test
-    void incorrectEmailTest() {
+    public void incorrectEmailTest() {
         loginPage
                 .openPage()
-                .loginWithEmailAndPassword("wrongemail@gmail.com", "correctPassword")
+                .loginWithEmailAndPassword("wrongemail@gmail.com", "BestLife2025")
                 .checkPasswordError();
         loginPage.verifyUserStayedOnLoginPage();
     }
 
     @Test
-    void emptyLoginFieldTest() {
+    public void emptyLoginFieldTest() {
 
         loginPage.openPage()
                 .loginWithEmailAndPassword("", "somePassword");
@@ -48,7 +48,7 @@ public class LoginTest extends TestBase{
     }
 
     @Test
-    void emptyPasswordFieldTest() {
+    public void emptyPasswordFieldTest() {
 
         loginPage.openPage()
                 .loginWithEmailAndPassword("darya.melgunova@gmail.com", "");
@@ -56,7 +56,7 @@ public class LoginTest extends TestBase{
     }
 
     @Test
-    void captchaAppearsAfterMultipleFailedAttempts() {
+    public void captchaAppearsAfterMultipleFailedAttempts() {
         loginPage.openPage();
         for (int i = 0; i < 4; i++) {
             loginPage.loginWithEmailAndPassword("darya.melgunova@gmail.com", "wrongPassword");
