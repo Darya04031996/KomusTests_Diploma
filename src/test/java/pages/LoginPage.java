@@ -15,11 +15,11 @@ public class LoginPage extends TestBase {
     private final SelenideElement passwordField = $("[placeholder='Пароль']");
     private final SelenideElement loginButton = $("button[type=submit]");
     private final SelenideElement loginForm = $(".main-info-profile__name");
-    private SelenideElement passwordErrorMessage = $(".v-form-error--start");
-    private SelenideElement emailErrorMessage = $(".v-form-error");
-    private SelenideElement pageTitle = $("h4[data-test-id='page-title']");
-    private SelenideElement captchaImage = $(".v-captcha__image");
-    private SelenideElement captchaInput = $("input[name='captcha']");
+    private final SelenideElement passwordErrorMessage = $(".v-form-error--start");
+    private final SelenideElement emailErrorMessage = $(".v-form-error");
+    private final SelenideElement pageTitle = $("h4[data-test-id='page-title']");
+    private final SelenideElement captchaImage = $(".v-captcha__image");
+    private final SelenideElement captchaInput = $("input[name='captcha']");
 
     public LoginPage openPage() {
         open("/login");
@@ -34,27 +34,27 @@ public class LoginPage extends TestBase {
         return this;
     }
     @Step("Проверить, что пользователь залогинен как Дарья Михайловна Мельгунова")
-    public LoginPage checkUserIsLoggedIn() {
+    public void checkUserIsLoggedIn() {
         $(".main-info-profile").shouldBe(visible);
         loginForm.shouldHave(text("Дарья Михайловна Мельгунова"));
-        return this;
+
     }
 
     @Step("Проверить, что отобразилось уведомление 'Неверно введен пароль'")
-    public LoginPage checkEmailError() {
+    public void checkPasswordError() {
         passwordErrorMessage.shouldHave(text("Неверно введен пароль"));
-        return this;
+
     }
     @Step("Проверить, что отобразилось уведомление 'Пользователь с данным E-mail не найден. Проверьте адрес'")
-    public LoginPage checkPasswordError() {
+    public void checkEmailError() {
         emailErrorMessage.shouldHave(text("Пользователь с данным E-mail не найден. Проверьте адрес"));
-        return this;
     }
 
     @Step("Проверить, что пользователь остался на странице логина")
     public LoginPage verifyUserStayedOnLoginPage() {
         pageTitle.shouldHave(text("Вход"));
         return this;
+
     }
     @Step("Проверить, что под полем Логин - валидационное сообщение 'Это поле необходимо заполнить'")
     public void checkUserIsNotLoggedInEmptyLogin() {
@@ -65,10 +65,10 @@ public class LoginPage extends TestBase {
         passwordField.sibling(1).shouldHave(text("Это поле необходимо заполнить"));
     }
     @Step("Проверить, что капча появилась после нескольких неверных попыток")
-    public LoginPage verifyCaptchaAppears() {
+    public void verifyCaptchaAppears() {
         captchaImage.shouldBe(visible);
         captchaInput.shouldBe(visible);
-        return this;
+
     }
 
 }

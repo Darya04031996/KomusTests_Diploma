@@ -5,52 +5,61 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 
-@DisplayName("Тесты на авторизацию через личный кабинет")
+@DisplayName("UI тесты на авторизацию")
 @Tag("WEB")
 public class LoginTest extends TestBase{
-    LoginPage loginPage = new LoginPage();
+    final LoginPage loginPage = new LoginPage();
 
     @Test
-    @DisplayName("Успешная авторизация с корректными данными")
     void successfulLoginTest() {
 
         loginPage
                 .openPage()
-                .enterEmail("3333@mail.ru")
-                .enterPassword("8468642")
-                .clickLoginButton();
-
+                .loginWithEmailAndPassword("darya.melgunova@gmail.com", "correctPassword")
+                .checkUserIsLoggedIn();
+        .
     }
 
     @Test
-    @DisplayName("Авторизация с неверным паролем")
     void incorrectPasswordTest() {
 
-        loginPage
-                .openPage()
-                .enterEmail("3333@mail.ru")
-                .enterPassword("wrongpass")
-                .clickLoginButton();
+        loginPage.openPage()
+                .loginWithEmailAndPassword("darya.melgunova@gmail.com", "wrongPassword")
+                .checkEmailError()
+                .verifyUserStayedOnLoginPage();
     }
 
     @Test
-    @DisplayName("Авторизация с несуществующей почтой")
-    void nonExistingEmailTest() {
-
+    void incorrectEmailTest() {
         loginPage
                 .openPage()
-                .enterEmail("fakeuser@mail.com")
-                .enterPassword("8468642")
-                .clickLoginButton();
+                .loginWithEmailAndPassword("wrongemail@gmail.com", "correctPassword")
+                .checkPasswordError()
+                .verifyUserStayedOnLoginPage();
     }
 
     @Test
-    @DisplayName("Авторизация с пустыми полями")
-    void emptyFieldsTest() {
+    void emptyLoginFieldTest() {
 
-        loginPage
-                .openPage()
-                .clickLoginButton();
+        loginPage.openPage()
+                .loginWithEmailAndPassword("", "somePassword");
+        loginPage.checkUserIsNotLoggedInEmptyLogin();
     }
 
+    @Test
+    void emptyPasswordFieldTest() {
+
+        loginPage.openPage()
+                .loginWithEmailAndPassword("darya.melgunova@gmail.com", "");
+        loginPage.checkUserIsNotLoggedInEmptyPassword();
+    }
+
+    @Test
+    void captchaAppearsAfterMultipleFailedAttempts() {
+        loginPage.openPage();
+        for (int i = 0; i < 4; i++) {
+            loginPage.loginWithEmailAndPassword("darya.melgunova@gmail.com", "wrongPassword");
+        }
+        loginPage.verifyCaptchaAppears();
+    }
 }
