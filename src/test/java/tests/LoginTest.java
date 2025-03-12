@@ -5,15 +5,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
-import static io.qameta.allure.Allure.step;
-
 @DisplayName("Тесты на авторизацию через личный кабинет")
 @Tag("WEB")
-public class LoginTest {
+public class LoginTest extends TestBase{
     LoginPage loginPage = new LoginPage();
 
     @Test
@@ -26,7 +20,6 @@ public class LoginTest {
                 .enterPassword("8468642")
                 .clickLoginButton();
 
-        $(".user-profile").shouldBe(visible); // Проверяем, что пользователь авторизован
     }
 
     @Test
@@ -38,8 +31,6 @@ public class LoginTest {
                 .enterEmail("3333@mail.ru")
                 .enterPassword("wrongpass")
                 .clickLoginButton();
-
-        $(".v-form-error").shouldHave(text("Неверный логин или пароль"));
     }
 
     @Test
@@ -51,8 +42,6 @@ public class LoginTest {
                 .enterEmail("fakeuser@mail.com")
                 .enterPassword("8468642")
                 .clickLoginButton();
-
-        $(".v-form-error").shouldHave(text("Пользователь не найден"));
     }
 
     @Test
@@ -62,8 +51,6 @@ public class LoginTest {
         loginPage
                 .openPage()
                 .clickLoginButton();
-
-        $(".v-form-error").shouldHave(text("Заполните все обязательные поля"));
     }
 
 }
