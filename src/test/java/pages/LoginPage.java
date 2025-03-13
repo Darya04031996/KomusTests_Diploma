@@ -41,7 +41,7 @@ public class LoginPage extends TestBase {
     }
     @Step("Проверить, что пользователь залогинен как Дарья Михайловна Мельгунова")
     public void checkUserIsLoggedIn() {
-        $(".main-info-profile").shouldBe(visible);
+        $(".main-info-profile__name").shouldBe(visible);
         loginForm.shouldHave(text("Дарья Михайловна Мельгунова"));
 
     }
@@ -65,14 +65,13 @@ public class LoginPage extends TestBase {
     public void checkUserIsNotLoggedInEmptyLogin() {
         emailField.setValue("");
         loginButton.click();
-        emailField.parent().shouldHave(text("Это поле необходимо заполнить"));
+        emailErrorMessage.shouldHave(text("Это поле необходимо заполнить"));
     }
     @Step("Проверить, что под полем Пароль - валидационное сообщение 'Это поле необходимо заполнить'")
     public LoginPage checkUserIsNotLoggedInEmptyPassword() {
     passwordField.setValue("");
     loginButton.click();
     passwordErrorMessage.shouldHave(text("Это поле необходимо заполнить"));
-
     return this;
     }
     @Step("Проверить, что капча появилась после нескольких неверных попыток")
