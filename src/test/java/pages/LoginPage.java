@@ -51,18 +51,22 @@ public class LoginPage extends TestBase {
     }
 
     @Step("Проверить, что пользователь остался на странице логина")
-    public LoginPage verifyUserStayedOnLoginPage() {
+    public void verifyUserStayedOnLoginPage() {
         pageTitle.shouldHave(text("Вход"));
-        return this;
 
     }
     @Step("Проверить, что под полем Логин - валидационное сообщение 'Это поле необходимо заполнить'")
     public void checkUserIsNotLoggedInEmptyLogin() {
+        emailField.setValue("");
+        loginButton.click();
         emailField.sibling(0).shouldHave(text("Это поле необходимо заполнить"));
     }
     @Step("Проверить, что под полем Пароль - валидационное сообщение 'Это поле необходимо заполнить'")
-        public void checkUserIsNotLoggedInEmptyPassword() {
-        passwordField.sibling(1).shouldHave(text("Это поле необходимо заполнить"));
+    public LoginPage checkUserIsNotLoggedInEmptyPassword() {
+    passwordField.setValue("");
+    loginButton.click();
+    passwordField.sibling(0).shouldHave(text("Это поле необходимо заполнить"));
+    return this;
     }
     @Step("Проверить, что капча появилась после нескольких неверных попыток")
     public void verifyCaptchaAppears() {

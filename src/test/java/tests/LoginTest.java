@@ -1,58 +1,60 @@
 package tests;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 
+import static com.codeborne.selenide.Selenide.*;
+
 @DisplayName("UI тесты на авторизацию")
 @Tag("WEB")
-public class LoginTest extends TestBase{
-    final LoginPage loginPage = new LoginPage();
+public class LoginTest extends TestBase {
+    private final LoginPage loginPage = new LoginPage();
+
+    @BeforeEach
+    public void clearCookiesBeforeTest() {
+        open("/");  // Открываем главную страницу
+        clearBrowserCookies();
+        clearBrowserLocalStorage();
+    }
 
     @Test
     public void successfulLoginTest() {
-
-        loginPage
-                .openPage()
+        loginPage.openPage()
                 .loginWithEmailAndPassword("darya.melgunova@gmail.com", "BestLife2025")
                 .checkUserIsLoggedIn();
-
     }
 
     @Test
     public void incorrectPasswordTest() {
-
-        loginPage
-                .openPage()
+        loginPage.openPage()
                 .loginWithEmailAndPassword("darya.melgunova@gmail.com", "BestLife2024")
-                .checkEmailError();
-        loginPage.verifyUserStayedOnLoginPage();
-    }
-
-    @Test
-    public void incorrectEmailTest() {
-        loginPage
-                .openPage()
-                .loginWithEmailAndPassword("wrongemail@gmail.com", "BestLife2025")
                 .checkPasswordError();
         loginPage.verifyUserStayedOnLoginPage();
     }
 
     @Test
-    public void emptyLoginFieldTest() {
-
+    public void incorrectEmailTest() {
         loginPage.openPage()
-                 .loginWithEmailAndPassword("", "somePassword");
-        loginPage.checkUserIsNotLoggedInEmptyLogin();
+                .loginWithEmailAndPassword("wrongemail@gmail.com", "BestLife2025")
+                .checkEmailError();
+        loginPage.verifyUserStayedOnLoginPage();
+    }
+
+    @Test
+    public void emptyLoginFieldTest() {
+        loginPage.openPage()
+                .loginWithEmailAndPassword("", "somePassword")
+                .checkUserIsNotLoggedInEmptyLogin();
     }
 
     @Test
     public void emptyPasswordFieldTest() {
-
         loginPage.openPage()
-                .loginWithEmailAndPassword("darya.melgunova@gmail.com", "");
-        loginPage.checkUserIsNotLoggedInEmptyPassword();
+                .loginWithEmailAndPassword("darya.melgunova@gmail.com", "")
+                .checkUserIsNotLoggedInEmptyPassword();
     }
 
     @Test

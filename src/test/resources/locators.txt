@@ -36,4 +36,12 @@
 
 
 
-            <div data-v-0c7468f0="" data-v-5c9cb8a0="" class="v-form-error v-form-error--start">Пользователь с данным E-mail не найден. Проверьте адрес</div>
+
+          <div data-v-0c7468f0="" data-v-5c9cb8a0="" class="v-form-error v-form-error--start">Пользователь с данным E-mail не найден. Проверьте адрес</div>
+
+@BeforeEach
+public void clearCookiesBeforeTest() {
+    open("/");  // Открываем любую страницу
+    clearBrowserCookies();
+    clearBrowserLocalStorage();
+}
