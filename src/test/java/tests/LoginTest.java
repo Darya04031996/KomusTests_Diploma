@@ -13,12 +13,13 @@ import static com.codeborne.selenide.Selenide.*;
 public class LoginTest extends TestBase {
     private final LoginPage loginPage = new LoginPage();
 
-    @BeforeEach
+  //  @BeforeEach
     public void clearCookiesBeforeTest() {
         open("/");  // Открываем главную страницу
         clearBrowserCookies();
         clearBrowserLocalStorage();
     }
+
 
     @Test
     public void successfulLoginTest() {

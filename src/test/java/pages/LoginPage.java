@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.Keys;
 import tests.TestBase;
 
 import static com.codeborne.selenide.Condition.text;
@@ -20,6 +21,7 @@ public class LoginPage extends TestBase {
     private final SelenideElement pageTitle = $("h4[data-test-id='page-title']");
     private final SelenideElement captchaImage = $(".v-captcha__image");
     private final SelenideElement captchaInput = $("input[name='captcha']");
+    private final SelenideElement emailField1 = $("[autocomplete='email']");
 
     public LoginPage openPage() {
         open("/login");
@@ -28,7 +30,11 @@ public class LoginPage extends TestBase {
     }
 
     public LoginPage loginWithEmailAndPassword(String email, String password) {
+        emailField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        emailField.sendKeys(Keys.DELETE);
         emailField.setValue(email);
+        passwordField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        passwordField.sendKeys(Keys.DELETE);
         passwordField.setValue(password);
         loginButton.click();
         return this;
@@ -59,13 +65,14 @@ public class LoginPage extends TestBase {
     public void checkUserIsNotLoggedInEmptyLogin() {
         emailField.setValue("");
         loginButton.click();
-        emailField.sibling(0).shouldHave(text("Это поле необходимо заполнить"));
+        emailField.parent().shouldHave(text("Это поле необходимо заполнить"));
     }
     @Step("Проверить, что под полем Пароль - валидационное сообщение 'Это поле необходимо заполнить'")
     public LoginPage checkUserIsNotLoggedInEmptyPassword() {
     passwordField.setValue("");
     loginButton.click();
-    passwordField.sibling(0).shouldHave(text("Это поле необходимо заполнить"));
+    passwordErrorMessage.shouldHave(text("Это поле необходимо заполнить"));
+
     return this;
     }
     @Step("Проверить, что капча появилась после нескольких неверных попыток")
