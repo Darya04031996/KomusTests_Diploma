@@ -15,7 +15,7 @@ public class LoginTest extends TestBase{
 
         loginPage
                 .openPage()
-                .loginWithEmailAndPassword("darya.melgunova@gmail.com", "correctPassword")
+                .loginWithEmailAndPassword("darya.melgunova@gmail.com", "BestLife2025")
                 .checkUserIsLoggedIn();
 
     }
@@ -27,7 +27,7 @@ public class LoginTest extends TestBase{
                 .openPage()
                 .loginWithEmailAndPassword("darya.melgunova@gmail.com", "BestLife2024")
                 .checkEmailError();
-                 .verifyUserStayedOnLoginPage();
+        loginPage.verifyUserStayedOnLoginPage();
     }
 
     @Test
@@ -43,7 +43,7 @@ public class LoginTest extends TestBase{
     public void emptyLoginFieldTest() {
 
         loginPage.openPage()
-                .loginWithEmailAndPassword("", "somePassword");
+                 .loginWithEmailAndPassword("", "somePassword");
         loginPage.checkUserIsNotLoggedInEmptyLogin();
     }
 
