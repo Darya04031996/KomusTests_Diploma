@@ -1,16 +1,14 @@
 package tests;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 
-import static com.codeborne.selenide.Selenide.*;
 
 @DisplayName("UI тесты на авторизацию")
 @Tag("WEB")
-public class LoginTest extends TestBase {
+public class LoginTests extends TestBase {
     private final LoginPage loginPage = new LoginPage();
 
     @Test

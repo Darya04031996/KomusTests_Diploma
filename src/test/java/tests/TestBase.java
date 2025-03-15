@@ -5,13 +5,17 @@ import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import pages.LoginPage;
+
+
 
 import static com.codeborne.selenide.Selenide.*;
 
 public class TestBase {
     @BeforeAll
-    static void beforeAll() {
+    static void settingsBeforeAll() {
+        //WebConfig webConfig = ConfigFactory.create(WebConfig.class, System.getProperties());
+        //AuthConfig authConfig = ConfigFactory.create(AuthConfig.class, System.getProperties());
+
         Configuration.browserSize = "920x920";
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://www.komus.ru/";
