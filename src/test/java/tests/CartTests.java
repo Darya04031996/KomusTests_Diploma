@@ -74,4 +74,23 @@ public class CartTests extends TestBase {
                 .removeProductFromCart()
                 .verifyCartIsEmpty();
     }
+    @Test
+    @Owner("Дарья Петрова")
+    @Feature("Реализация корзины пользователя с товарами")
+    @Story("UI: Добавление товара в корзину ")
+    @DisplayName("Проверка добавления товара в корзину из списка избранных")
+    public void AddProductFromCartTest() {
+        productPage
+                .openPage(product)
+                .addToFavorites()
+                .openCart()
+
+
+                .addToCart()
+                .checkProductInCart()
+                .openCart();
+        cartPage
+                .removeProductFromCart()
+                .verifyCartIsEmpty();
+    }
 }

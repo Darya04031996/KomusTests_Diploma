@@ -16,7 +16,8 @@ public class CartPage {
     private final SelenideElement removeProductButton = $(".remove-icon");
     private final SelenideElement emptyCartMessage = $(".cart__title--empty");
     private final SelenideElement productQuantityInput = $(".product-card-list-slim--cart-item .v-counter__input");
-
+    private final SelenideElement favoriteCartProduct = $(".product-mini-card");
+    private final SelenideElement addToFromCartButton = $(".v-button.v-button--size-xs.v-button--primary.v-button--full-width");
 
     @Step("Проверить, что добавленный товар '{productId}' в корзине")
     public CartPage verifyProductInCart(String productId) {
@@ -54,6 +55,12 @@ public class CartPage {
         emptyCartMessage.shouldBe(visible);
         return this;
     }
+    @Step("Проверить, что товар из избранных добавлен в корзину")
+    public CartPage checkProductInCart() {
+        $(".cart-items").shouldHave(text("Logitech M171")); // Проверяем, что товар в корзине
+        return this;
+    }
+
 }
 
 
