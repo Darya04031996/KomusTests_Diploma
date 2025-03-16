@@ -4,13 +4,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.LoginPage;
+import pages.ProductPage;
 
 
 @DisplayName("UI тесты на авторизацию")
 @Tag("WEB")
 public class LoginTests extends TestBase {
-    private final LoginPage loginPage = new LoginPage();
-
+    final LoginPage loginPage = new LoginPage();
     @Test
     public void successfulLoginTest() {
         loginPage.openPage()

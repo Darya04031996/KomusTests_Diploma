@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.ElementClickInterceptedException;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -12,7 +13,7 @@ public class ProductPage {
     private final SelenideElement productTitle = $("h1.product-details-page__title");
     private final SelenideElement productSku = $(".qa-vendor-code");
     private final SelenideElement addToFavoritesButton = $("a.add-to-favorite__link");
-    private final SelenideElement cartButton = $(".product-price__add-to-cart input");
+    private final SelenideElement cartButton = $(".js-product-add.js-gtm--addtocart");
     private final SelenideElement deleteFromFavoritesButton = $("use[xlink\\:href*='service_delete']");
     private final SelenideElement emptyFavoritesMessage = $("h6.page-empty__title");
     private final SelenideElement goToFavoritesButton = $("a.favorite-counter__link");
@@ -69,12 +70,27 @@ public class ProductPage {
     }
 
     // Добавить товар в корзину
-    @Step("Нажать кнопку 'В корзину'")
     public ProductPage addToCart() {
-        cartButton.click();
+        // Скроллим к кнопке
+        cartButton.scrollIntoView(true);
+
+        // Проверяем, что кнопка видима и активна
+        cartButton.shouldBe(visible, enabled);
+
+        // Если клик перехватывается, пробуем кликнуть через JavaScript
+        try {
+            cartButton.click();
+        } catch (ElementClickInterceptedException e) {
+            executeJavaScript("arguments[0].click();", cartButton);
+        }
+
         return this;
     }
-
+    @Step("Открыть корзину")
+    public ProductPage openCart() {
+        open("/cart");
+        return this;
+    }
     // Проверить, что товар добавлен в корзину
     @Step("Проверить, что кнопка изменилась на 'Изменить'")
     public ProductPage checkProductInCart() {

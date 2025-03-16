@@ -5,6 +5,7 @@ import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pages.LoginPage;
 import pages.ProductPage;
 
 import static common.TestData.getTestData;
@@ -20,6 +21,7 @@ public class FavoriteTests extends TestBase{
     @DisplayName("Проверка добавления товара в избранное")
     public void addProductToFavoritesTest() {
         productPage.openPage(product)
+                .checkProductSku(product)
                 .addToFavorites()
                 .openFavoritesList()
                 .checkProductInFavorites(product);
@@ -35,6 +37,7 @@ public class FavoriteTests extends TestBase{
                 .addToFavorites()
                 .openFavoritesList()
                 .removeFromFavorites()
-                .checkProductInFavorites(product);
+                .checkFavoritesIsEmpty();
 }
+
 }

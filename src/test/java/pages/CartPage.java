@@ -5,14 +5,16 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 public class CartPage {
     private final SelenideElement productItem = $(".product-card-list-slim--cart-item");
-    private final SelenideElement productQuantity = $(".v-counter__input");
     private final SelenideElement increaseQuantityButton = $(".v-counter__arrow-button--plus");
     private final SelenideElement decreaseQuantityButton = $(".v-counter__arrow-button--minus");
     private final SelenideElement removeProductButton = $(".remove-icon");
     private final SelenideElement emptyCartMessage = $(".cart__title--empty");
+
+
 
     @Step("Проверить, что добавленный товар '{productId}' в корзине")
     public CartPage verifyProductInCart(String productId) {
@@ -20,11 +22,6 @@ public class CartPage {
         return this;
     }
 
-    @Step("Проверить кол-во товара в корзине - {qty}")
-    public CartPage verifyProductQuantity(String qty) {
-        productQuantity.shouldHave(value(qty));
-        return this;
-    }
 
     @Step("Нажать на +, чтобы увеличить количество товара в корзине")
     public CartPage increaseProductQuantity() {
