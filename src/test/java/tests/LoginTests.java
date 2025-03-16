@@ -51,7 +51,7 @@ public class LoginTests extends TestBase {
     @Test
     public void captchaAppearsAfterMultipleFailedAttempts() {
         loginPage.openPage();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             loginPage.loginWithEmailAndPassword("darya.melgunova@gmail.com", "wrongPassword");
         }
         loginPage.verifyCaptchaAppears();

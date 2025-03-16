@@ -17,15 +17,61 @@ public class CartTests extends TestBase {
 
     @Test
     @Owner("Мельгунова Дарья")
-    @Feature("Реализация списка избранных товаров пользователя")
-    @Story("UI: Добавление товара в список избранного")
-    @DisplayName("Проверка добавления товара в избранное")
+    @Feature("Реализация корзины пользователя с товарами")
+    @Story("UI: Добавление товара в корзину")
+    @DisplayName("Проверка добавления товара в корзину")
     public void checkProductAddingToCartTest() {
         productPage
                 .openPage(product)
                 .addToCart()
+                .checkProductInCart()
                 .openCart();
         cartPage.verifyProductInCart(product);
     }
-
+    @Test
+    @Owner("Мельгунова Дарья")
+    @Feature("Реализация корзины пользователя с товарами")
+    @Story("UI: Изменение товара в корзине")
+    @DisplayName("Проверка увеличения количества товара в корзине")
+    public void checkProductCountIncreasingInCartTest() {
+        productPage
+                .openPage(product)
+                .addToCart()
+                .checkProductInCart()
+                .openCart();
+        cartPage
+                .increaseProductQuantity()
+                .verifyProductQuantity(2);
+    }
+    @Test
+    @Owner("Мельгунова Дарья")
+    @Feature("Реализация корзины пользователя с товарами")
+    @Story("UI: Изменение товара в корзине")
+    @DisplayName("Проверка уменьшения количества товара в корзине")
+    public void checkProductCountDecreasingInCartTest() {
+        productPage
+                .openPage(product)
+                .addToCart()
+                .checkProductInCart()
+                .openCart();
+        cartPage
+                .increaseProductQuantity()
+                .decreaseProductQuantity()
+                .verifyProductQuantity(1);
+    }
+    @Test
+    @Owner("Дарья Петрова")
+    @Feature("Реализация корзины пользователя с товарами")
+    @Story("UI: Удаление товара из корзины")
+    @DisplayName("Проверка удаления товара из корзины")
+    public void checkProductDeletingFromCartTest() {
+        productPage
+                .openPage(product)
+                .addToCart()
+                .checkProductInCart()
+                .openCart();
+        cartPage
+                .removeProductFromCart()
+                .verifyCartIsEmpty();
+    }
 }

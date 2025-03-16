@@ -16,7 +16,7 @@ public class TestBase {
         //WebConfig webConfig = ConfigFactory.create(WebConfig.class, System.getProperties());
         //AuthConfig authConfig = ConfigFactory.create(AuthConfig.class, System.getProperties());
 
-        Configuration.browserSize = "920x920";
+        Configuration.browserSize = "920x1080";
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://www.komus.ru/";
     }
