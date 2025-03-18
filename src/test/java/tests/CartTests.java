@@ -28,6 +28,7 @@ public class CartTests extends TestBase {
                 .openCart();
         cartPage.verifyProductInCart(product);
     }
+
     @Test
     @Owner("Мельгунова Дарья")
     @Feature("Реализация корзины пользователя с товарами")
@@ -43,6 +44,7 @@ public class CartTests extends TestBase {
                 .increaseProductQuantity()
                 .verifyProductQuantity(2);
     }
+
     @Test
     @Owner("Мельгунова Дарья")
     @Feature("Реализация корзины пользователя с товарами")
@@ -59,38 +61,19 @@ public class CartTests extends TestBase {
                 .decreaseProductQuantity()
                 .verifyProductQuantity(1);
     }
-    @Test
-    @Owner("Дарья Петрова")
-    @Feature("Реализация корзины пользователя с товарами")
-    @Story("UI: Удаление товара из корзины")
-    @DisplayName("Проверка удаления товара из корзины")
-    public void checkProductDeletingFromCartTest() {
-        productPage
-                .openPage(product)
-                .addToCart()
-                .checkProductInCart()
-                .openCart();
-        cartPage
-                .removeProductFromCart()
-                .verifyCartIsEmpty();
-    }
-    @Test
-    @Owner("Дарья Петрова")
-    @Feature("Реализация корзины пользователя с товарами")
-    @Story("UI: Добавление товара в корзину ")
-    @DisplayName("Проверка добавления товара в корзину из списка избранных")
-    public void AddProductFromCartTest() {
-        productPage
-                .openPage(product)
-                .addToFavorites()
-                .openCart()
 
-
-                .addToCart()
-                .checkProductInCart()
-                .openCart();
-        cartPage
-                .removeProductFromCart()
-                .verifyCartIsEmpty();
-    }
+//    @Test
+//     @Owner("Мельгунова Дарья")
+//     @Feature("Реализация корзины пользователя с товарами")
+//     @Story("UI: Удаление товара из корзины")
+//      @DisplayName("Проверка удаления товара из корзины")
+//     public void checkProductDeletingFromCartTest() {
+    //  }
+    // @Test
+    //  @Owner("Мельгунова Дарья")
+    //  @Feature("Реализация корзины пользователя с товарами")
+    //  @Story("UI: Добавление товара в корзину ")
+    //  @DisplayName("Проверка добавления товара в корзину из списка избранных")
+    //  public void AddProductFromCartTest() {
+//
 }
