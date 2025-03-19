@@ -1,16 +1,18 @@
-package tests;
+package tests.web;
 
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import pages.LoginPage;
 import pages.ProductPage;
 
 import static common.TestData.getTestData;
 
-public class FavoriteTests extends TestBase{
+@DisplayName("UI тесты на избранное")
+@Tag("WEB")
+public class FavoriteTests extends TestBase {
     final ProductPage productPage = new ProductPage();
     final String product = getTestData("product");
 

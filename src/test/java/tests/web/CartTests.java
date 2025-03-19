@@ -1,15 +1,18 @@
-package tests;
+package tests.web;
 
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.CartPage;
 import pages.ProductPage;
 
 import static common.TestData.getTestData;
 
+@DisplayName("UI тесты на корзину")
+@Tag("WEB")
 public class CartTests extends TestBase {
     final ProductPage productPage = new ProductPage();
     final CartPage cartPage = new CartPage();

@@ -1,13 +1,20 @@
 plugins {
-    id 'java-library'
-    id 'io.qameta.allure' version '2.11.2'
-    id "io.freefair.lombok" version "8.0.1"
+    id 'java'
+    id 'io.qameta.allure' version '2.10.0'
+    id 'io.freefair.lombok' version '8.6'
 }
-repositories {
-    mavenCentral()
-}
-def restAssuredVersion = "5.3.1"
-def allureVersion = "2.21.0"
+
+group = 'ru.dpqa'
+version = '1.0-SNAPSHOT'
+
+def selenideVersion = "7.2.3",
+    unitVersion = "5.10.2",
+    restAssuredVersion = "5.4.0",
+    assertJsVersion = "3.25.3",
+    ownerVersion = "1.0.12",
+    allureVersion = "2.28.0",
+    awaitilityVersion="4.2.2",
+    aspectjWeaverVersion="1.9.22"
 
 
 allure {
@@ -15,6 +22,7 @@ allure {
         version.set(allureVersion)
     }
     adapter {
+        aspectjVersion.set("1.9.22")
         aspectjWeaver.set(true)
         frameworks {
             junit5 {
@@ -24,29 +32,33 @@ allure {
     }
 }
 
-
-
-compileJava {
-    options.encoding = 'UTF-8'
+repositories {
+    mavenCentral()
 }
+
 compileTestJava {
     options.encoding = 'UTF-8'
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-
     testImplementation(
+            "org.junit.jupiter:junit-jupiter:$unitVersion",
+            "com.codeborne:selenide:$selenideVersion",
+            "org.slf4j:slf4j-simple:2.0.13",
+            "org.awaitility:awaitility:$awaitilityVersion",
+
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            "io.qameta.allure:allure-rest-assured:$allureVersion",
+
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
-            "io.qameta.allure:allure-rest-assured:$allureVersion",
-            "com.codeborne:selenide:7.2.3",
-            "org.junit.jupiter:junit-jupiter:5.10.2",
-            'org.slf4j:slf4j-simple:2.0.13',
-            "org.assertj:assertj-core:3.24.2"
-    )
 
+            "org.assertj:assertj-core:$assertJsVersion",
+
+            "org.aeonbits.owner:owner:$ownerVersion",
+
+            "org.aspectj:aspectjweaver:$aspectjWeaverVersion"
+    )
 }
 
 tasks.withType(Test) {
@@ -60,8 +72,15 @@ tasks.withType(Test) {
         }
     }
 }
-task simple_test(type: Test) {
+
+task web(type: Test) {
     useJUnitPlatform {
-        includeTags("simple")
+        includeTags("WEB")
+    }
+}
+
+task api(type: Test) {
+    useJUnitPlatform {
+        includeTags("API")
     }
 }

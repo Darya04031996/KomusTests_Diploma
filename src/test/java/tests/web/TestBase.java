@@ -1,14 +1,9 @@
-package tests;
+package tests.web;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import pages.LoginPage;
-
-
-import static com.codeborne.selenide.Selenide.*;
 
 public class TestBase {
     @BeforeAll
