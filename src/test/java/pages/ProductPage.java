@@ -14,7 +14,7 @@ public class ProductPage {
     private final SelenideElement productSku = $(".qa-vendor-code");
     private final SelenideElement addToFavoritesButton = $("a.add-to-favorite__link");
     private final SelenideElement cartButton = $(".js-product-add.js-gtm--addtocart");
-    private final SelenideElement deleteFromFavoritesButton = $("use[xlink\\:href*='service_delete']");
+    private final SelenideElement deleteFromFavoritesButton = $(".v-button-icon.remove-icon");
     private final SelenideElement emptyFavoritesMessage = $("h6.page-empty__title");
     private final SelenideElement goToFavoritesButton = $("a.favorite-counter__link");
     private final SelenideElement addedToCartButton = $("input.js-edit-count-in-cart[value='Изменить']");

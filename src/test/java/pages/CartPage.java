@@ -55,7 +55,7 @@ public class CartPage {
     }
     @Step("Проверить, что товар из избранных добавлен в корзину")
     public CartPage checkProductInCart() {
-        $(".cart-items").shouldHave(text("Logitech M171")); // Проверяем, что товар в корзине
+        $(".cart-items").shouldHave(text("Logitech M171"));
         return this;
     }
 

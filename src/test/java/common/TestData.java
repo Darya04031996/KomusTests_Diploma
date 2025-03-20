@@ -9,6 +9,9 @@ import java.util.Properties;
 public class TestData {
     public static final String email = System.getProperty("email", "darya.melgunova@gmail.com");
     public static final String password = System.getProperty("password", "BestLife2025");
+    public static final String email1 = System.getProperty("email", "wrongemail@gmail.com");
+    public static final String password1 = System.getProperty("password", "BestLife2024");
+
 
     public static String getTestData(String product) {
         ClassLoader classLoader = TestData.class.getClassLoader();
