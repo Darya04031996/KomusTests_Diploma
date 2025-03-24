@@ -1,39 +1,32 @@
 package api.auth;
 
 import api.models.LoginRequestModel;
-import io.restassured.http.ContentType;
+import api.specs.KomusSpec;
+
 import io.restassured.response.Response;
 import tests.api.TestBaseApi;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
 public class AuthApi extends TestBaseApi {
-    private static final String LOGIN_URL = "https://www.komus.ru/api/login";
-    private Map<String, String> cookies = new HashMap<>();
 
-    public void login(String username, String password) {
-        LoginRequestModel loginRequest = new LoginRequestModel(username, password);
+    private static final String LOGIN_URL = "/api/login";
 
-
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(loginRequest)
+    public Map<String, String> login(String username, String password) {
+        // Выполняем запрос на логин
+        Response response = given(KomusSpec.requestSpec)
+                .contentType("application/json")
+                .body(new LoginRequestModel(username, password))
                 .when()
                 .post(LOGIN_URL)
                 .then()
-                .log().all()
-                .statusCode(200)
+                .spec(KomusSpec.responseSpecWithStatusCode200)
                 .extract()
                 .response();
 
-
-        cookies = response.getCookies();
-    }
-
-    public Map<String, String> getCookies() {
-        return cookies;
+        // Извлекаем куки из ответа, которые будут использованы для авторизации в следующих запросах
+        return response.getCookies();
     }
 }

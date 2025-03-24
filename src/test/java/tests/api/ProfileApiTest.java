@@ -2,6 +2,7 @@ package tests.api;
 
 import api.auth.AuthApi;
 import api.models.ProfileApiModel;
+
 import api.steps.TestStepsApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -9,26 +10,28 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("API тесты на проверку данных профиля пользователя")
 @Tag("API")
 public class ProfileApiTest extends TestBaseApi {
-    private final String username = "darya.melgunova@gmail.com";  // Замените на нужный логин
-    private final String password = "BestLife2025";  // Замените на нужный пароль
 
     @Test
     public void testGetProfile() {
         AuthApi authApi = new AuthApi();
-        authApi.login(username, password);
-        Map<String, String> cookies = authApi.getCookies();
+        Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");
 
         TestStepsApi testStepsApi = new TestStepsApi();
         ProfileApiModel profile = testStepsApi.getProfile(cookies);
 
-        assertThat(profile).isNotNull();
-        assertThat(profile.getEmail()).isNotEmpty();
-        assertThat(profile.getFullName()).isNotEmpty();
+
+        assertEquals("darya.melgunova@gmail.com", profile.getEmail(), "Email не совпадает");
+        assertEquals("Дарья Михайловна Мельгунова", profile.getFullName(), "ФИО не совпадает");
+        assertEquals("FEMALE", profile.getGender(), "Пол не совпадает");
+        assertNotNull(profile.getCompanyInfo(), "Информация о компании не должна быть null");
+        assertEquals("02036457", profile.getCompanyInfo().getUid(), "UID компании не совпадает");
+        assertEquals("ООО Судо", profile.getCompanyInfo().getName(), "Название компании не совпадает");
+        assertEquals(false, profile.getCompanyInfo().getVip(), "VIP статус компании не совпадает");
     }
 }
-

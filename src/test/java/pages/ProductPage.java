@@ -34,50 +34,49 @@ public class ProductPage {
         return this;
     }
 
-    // Добавить товар в Избранное
+
     @Step("Нажать на сердечко у товара, чтобы добавить товар в Избранное")
     public ProductPage addToFavorites() {
         addToFavoritesButton.click();
         return this;
     }
 
-    // Открыть список Избранных товаров
+
     @Step("Нажать на сердечко, чтобы открыть список избранных товаров")
     public ProductPage openFavoritesList() {
         goToFavoritesButton.click();
         return this;
     }
 
-    // Проверить, что товар добавлен в Избранное
+
     @Step("Проверить, что товар '{productId}' добавлен в Избранное")
     public ProductPage checkProductInFavorites(String productId) {
         $("a[href*='/p/" + productId + "/']").shouldBe(visible);
         return this;
     }
 
-    // Удалить товар из Избранного
+
     @Step("Нажать X у товара '{productId}', чтобы удалить из Избранного")
     public ProductPage removeFromFavorites() {
         deleteFromFavoritesButton.click();
         return this;
     }
 
-    // Проверить, что список Избранных товаров пуст
     @Step("Проверить, что список избранных товаров пуст")
     public ProductPage checkFavoritesIsEmpty() {
         emptyFavoritesMessage.shouldHave(text("Здесь пока ничего нет"));
         return this;
     }
 
-    // Добавить товар в корзину
+
     public ProductPage addToCart() {
-        // Скроллим к кнопке
+
         cartButton.scrollIntoView(true);
 
-        // Проверяем, что кнопка видима и активна
+
         cartButton.shouldBe(visible, enabled);
 
-        // Если клик перехватывается, пробуем кликнуть через JavaScript
+
         try {
             cartButton.click();
         } catch (ElementClickInterceptedException e) {
@@ -91,7 +90,7 @@ public class ProductPage {
         open("/cart");
         return this;
     }
-    // Проверить, что товар добавлен в корзину
+
     @Step("Проверить, что кнопка изменилась на 'Изменить'")
     public ProductPage checkProductInCart() {
         addedToCartButton.shouldBe(visible);
