@@ -1,4 +1,7 @@
 package api.models;
+import lombok.Data;
+
+@Data
 
 public class ProfileApiModel {
     private String email;

@@ -1,5 +1,6 @@
 package api.auth;
 
+import api.models.LoginRequestModel;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import tests.api.TestBaseApi;
@@ -14,16 +15,20 @@ public class AuthApi extends TestBaseApi {
     private Map<String, String> cookies = new HashMap<>();
 
     public void login(String username, String password) {
+        LoginRequestModel loginRequest = new LoginRequestModel(username, password);
+
+
         Response response = given()
-                .contentType(ContentType.URLENC)
-                .queryParams("username", username)
-                .queryParams("password", password)
+                .contentType(ContentType.JSON)
+                .body(loginRequest)
                 .when()
                 .post(LOGIN_URL)
                 .then()
+                .log().all()
                 .statusCode(200)
                 .extract()
                 .response();
+
 
         cookies = response.getCookies();
     }

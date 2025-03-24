@@ -1,4 +1,6 @@
 package api.steps;
+import api.models.ProfileApiModel;
+import api.specs.KomusSpec;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
@@ -12,15 +14,15 @@ public class TestStepsApi {
     private static final String PROFILE_URL = "/api/profile";
 
     @Step("Получить данные профиля")
-    public Response getProfile(Map<String, String> cookies) {
-        return given(requestSpec)
+    public ProfileApiModel getProfile(Map<String, String> cookies) {
+        return given(KomusSpec.requestSpec)
                 .cookies(cookies) // Передаём куки авторизации
                 .when()
                 .get(PROFILE_URL)
                 .then()
-                .spec(responseSpecWithStatusCode200)
+                .spec(KomusSpec.responseSpecWithStatusCode200)
                 .extract()
-                .response();
+                .as(ProfileApiModel.class);
     }
 }
 
