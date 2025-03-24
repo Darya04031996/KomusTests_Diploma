@@ -14,8 +14,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DisplayName("API тесты на проверку данных профиля пользователя")
 @Tag("API")
 public class ProfileApiTest extends TestBaseApi {
-    private final String username = System.getenv("USER_EMAIL");
-    private final String password = System.getenv("USER_PASSWORD");
+    private final String username = "darya.melgunova@gmail.com";  // Замените на нужный логин
+    private final String password = "BestLife2025";  // Замените на нужный пароль
 
     @Test
     public void testGetProfile() {
