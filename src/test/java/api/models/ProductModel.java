@@ -1,11 +1,13 @@
 package api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-class ProductModel {
+@JsonIgnoreProperties
+public class ProductModel {
     private String code;
     private String url;
     private StockModel stock;

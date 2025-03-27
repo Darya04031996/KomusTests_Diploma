@@ -1,10 +1,12 @@
 package api.models;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-class StockModel {
+@JsonIgnoreProperties
+public class StockModel {
     private StockLevelStatusModel stockLevelStatus;
     private Integer stockLevel;
     private String stockStatusText;
