@@ -15,10 +15,13 @@ public class AuthApi extends TestBaseApi {
     private static final String LOGIN_URL = "/api/login";
 
     public Map<String, String> login(String username, String password) {
-        // Выполняем запрос на логин
+        LoginRequestModel loginRequest = new LoginRequestModel();
+        loginRequest.setUsername(username);
+        loginRequest.setPassword(password);
+
         Response response = given(KomusSpec.requestSpec)
                 .contentType("application/json")
-                .body(new LoginRequestModel(username, password))
+                .body(loginRequest)
                 .when()
                 .post(LOGIN_URL)
                 .then()
@@ -26,7 +29,6 @@ public class AuthApi extends TestBaseApi {
                 .extract()
                 .response();
 
-        // Извлекаем куки из ответа, которые будут использованы для авторизации в следующих запросах
         return response.getCookies();
     }
 }
