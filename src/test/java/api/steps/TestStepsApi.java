@@ -1,6 +1,6 @@
 package api.steps;
 import api.models.AddToCartRequestModel;
-import api.models.CartModificationResponseModel;
+import api.models.AddToCartResponseModel;
 import api.models.ProfileApiModel;
 import api.models.ProfileResponseModel;
 import api.specs.KomusSpec;
@@ -9,6 +9,8 @@ import io.restassured.response.Response;
 
 import java.util.Map;
 
+import static api.specs.KomusSpec.requestSpec;
+import static api.specs.KomusSpec.responseSpecWithStatusCode200;
 import static io.restassured.RestAssured.given;
 
 
@@ -20,12 +22,12 @@ public class TestStepsApi {
 
     @Step("Получить данные профиля")
     public ProfileApiModel getProfile(Map<String, String> cookies) {
-        Response response = given(KomusSpec.requestSpec)
+        Response response = given(requestSpec)
                 .cookies(cookies)
                 .when()
                 .get(PROFILE_URL)
                 .then()
-                .spec(KomusSpec.responseSpecWithStatusCode200)
+                .spec(responseSpecWithStatusCode200)
                 .extract()
                 .response();
 
@@ -34,26 +36,17 @@ public class TestStepsApi {
     }
 
     @Step("Добавить товар '{productCode}' в корзину с количеством {qty}")
-    public  CartModificationResponseModel addProductToCart (Map<String, String> cookies, String productCodePost, int qty) {
-        AddToCartRequestModel requestData = new AddToCartRequestModel();
-        requestData.setProductCodePost(productCodePost);
-        requestData.setRefererCartAddedPage("product_page");
-        requestData.setFrom("katalog");
-        requestData.setQty(qty);
-
-        Response response = given(KomusSpec.requestSpec)
-                .contentType("application/json")
+    public AddToCartResponseModel addProductToCart(String productCode, int quantity, Map<String, String> cookies) {
+        return given()
+                .spec(requestSpec)
                 .cookies(cookies)
-                .body(requestData)
+                .queryParam("productCode", productCode)
+                .queryParam("qty", quantity)
                 .when()
                 .post(CART_ADD_URL)
                 .then()
-                .spec(KomusSpec.responseSpecWithStatusCode200)
-                .extract()
-                .response();
-
-        return response.as(CartModificationResponseModel.class);
-
+                .spec(responseSpecWithStatusCode200)
+                .extract().as(AddToCartResponseModel.class);
     }
 }
 

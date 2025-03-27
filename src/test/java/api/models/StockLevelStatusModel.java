@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class AddToCartRequestModel {
-    private String productCode;
-    private Integer qty;
+class StockLevelStatusModel {
+    private String code;
+    private String type;
 }

@@ -1,7 +1,7 @@
 package tests.api;
 
-import api.models.CartModificationResponseModel;
 import api.auth.AuthApi;
+import api.models.AddToCartResponseModel;
 import api.steps.TestStepsApi;
 
 import org.junit.jupiter.api.DisplayName;
@@ -16,27 +16,40 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DisplayName("API тесты на добавление товара в корзину")
 @Tag("API")
-public class CartApiTests extends TestBaseApi{
+public class CartApiTests extends TestBaseApi {
 
     @Test
     @DisplayName("Добавление товара в корзину")
-    public void testAddProductToCart()  {
-        final String productCodePost = getTestData("product");
-        int qty = 1;
-
+    public void addProductToCartTest() {
+        final String productCode = getTestData("product");
         AuthApi authApi = new AuthApi();
         Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");
 
-        TestStepsApi testStepsApi = new TestStepsApi();
+        AddToCartResponseModel response = new TestStepsApi().addProductToCart(productCode, 1, cookies);
 
-        CartModificationResponseModel modificationResponseModel = testStepsApi.addProductToCart(cookies, productCodePost, qty);
+        // Проверки состояния ответа
+        assertThat(response.getStatusCode()).isEqualTo("inStock");
+        assertThat(response.getQuantityAdded()).isEqualTo(1);
 
-        assertThat(modificationResponseModel).isNotNull();
-        assertThat(modificationResponseModel.getStatusCode()).isEqualTo("200");
-        assertThat(modificationResponseModel.getQuantityAdded()).isEqualTo(qty);
-        assertThat(modificationResponseModel.getEntry()).isNotNull();
-        assertThat(modificationResponseModel.getEntry().getProduct().getCode()).isEqualTo(productCodePost);
-        assertThat(modificationResponseModel.getMindboxCartData()).isNotNull();
+        // Проверки данных о товаре
+        assertThat(response.getEntry().getProduct().getCode()).isEqualTo(productCode);
+        assertThat(response.getEntry().getProduct().getInCart()).isTrue();
+
+        // Проверка stockLevel
+        assertThat(response.getEntry().getProduct().getStock().getStockLevel()).isEqualTo(5029);
+
+        // Проверка статус текста
+        assertThat(response.getEntry().getProduct().getStock().getStockStatusText())
+                .contains("Доставка завтра");
+
+        // Проверка цены
+        assertThat(response.getEntry().getProduct().getPrice().getCurrencyIso()).isEqualTo("RUB");
+        assertThat(response.getEntry().getProduct().getPrice().getValue()).isEqualTo(70.20);
+        assertThat(response.getEntry().getProduct().getPrice().getFormattedValue()).isEqualTo("70,20 p.");
+        assertThat(response.getEntry().getProduct().getPrice().getPriceType()).isEqualTo("BUY");
+
+        // Другие проверки
+        assertThat(response.getEntry().getProduct().getPrice().getCoins()).isEqualTo(0.0);
+        assertThat(response.getEntry().getProduct().getPrice().getPriceRegionId()).isEqualTo("0");
     }
-
 }
