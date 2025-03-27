@@ -17,4 +17,6 @@ public class AddToCartResponseModel {
     private EntryModel entry;
     private List<MindboxCartDataModel> mindboxCartData;
     private Double coins;
+    private List<ErrorModel> errors;
+
 }
