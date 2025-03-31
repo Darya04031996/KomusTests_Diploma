@@ -7,15 +7,10 @@ import java.util.Map;
 
 import static api.specs.KomusSpec.*;
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.BDDAssertions.then;
-
 
 public class TestStepsApi {
     private static final String PROFILE_URL = "/api/profile";
     private static final String CART_ADD_URL = "/api/cart/add";
-    private static final String CART_CLEAR_URL = "https://komus.ru/cart/clear";
     private static final String CART_FAV_URL = "/api/favorites/add";
     private static final String FAVORITES_GET_LIST_URL = "/favorites/getProductFavoriteList";
     private static final String FAVORITES_REMOVE_URL = "/api/favorites/remove";
@@ -102,39 +97,8 @@ public class TestStepsApi {
                 .getFavoritesCount();
     }
 
-    @Step("Очистить корзину")
-    public void clearCart(Map<String, String> cookies) {
-        Response response = given()
-                .spec(requestSpec)
-                .cookies(cookies)
-                .redirects().follow(false)  // Отключаем автоматический редирект
-                .when()
-                .delete(CART_CLEAR_URL)
-                .then()
-                .log().all()  // Логируем полный ответ
-                .extract()
-                .response();
-
-        // Проверяем, нет ли редиректа (301, 302)
-        if (response.getStatusCode() == 301 || response.getStatusCode() == 302) {
-            String newLocation = response.getHeader("Location");
-            System.out.println("Redirected to: " + newLocation);
-
-            // Делаем повторный запрос на новый URL
-            given()
-                    .spec(requestSpec)
-                    .cookies(cookies)
-                    .when()
-                    .delete(newLocation)
-                    .then()
-                    .log().all()
-                    .statusCode(200);  // Ожидаем успешный ответ
-        } else {
-            // Если нет редиректа, просто проверяем статус-код
-            assertThat(response.getStatusCode()).isEqualTo(200);
-        }
     }
-}
+
 
 
 
