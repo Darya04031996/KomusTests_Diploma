@@ -25,10 +25,5 @@ import static io.restassured.RestAssured.with;
                 .expectStatusCode(400)
                 .log(LogDetail.ALL)
                 .build();
-
-        public static final ResponseSpecification responseSpecWithStatusCode404 = new ResponseSpecBuilder()
-                .expectStatusCode(404)
-                .log(LogDetail.ALL)
-                .build();
     }
 
