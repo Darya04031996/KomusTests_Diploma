@@ -14,6 +14,7 @@ public class TestStepsApi {
     private static final String CART_FAV_URL = "/api/favorites/add";
     private static final String FAVORITES_GET_LIST_URL = "/favorites/getProductFavoriteList";
     private static final String FAVORITES_REMOVE_URL = "/api/favorites/remove";
+    private static final String CART_CLEAR_URL = "/cart/clear";
 
     @Step("Получить данные профиля")
     public ProfileApiModel getProfile(Map<String, String> cookies) {
@@ -96,7 +97,17 @@ public class TestStepsApi {
                 .extract().as(FavoriteResponseModel.class)
                 .getFavoritesCount();
     }
-
+    @Step("Очистить корзину")
+    public void clearCart(Map<String, String> cookies) {
+        given()
+                .baseUri("https://komus.ru")
+                .spec(requestSpec)
+                .cookies(cookies)
+                .when()
+                .get(CART_CLEAR_URL)
+                .then()
+                .spec(responseSpecWithStatusCode200);
+    }
     }
 
 

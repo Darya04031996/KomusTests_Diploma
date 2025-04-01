@@ -58,5 +58,15 @@ public class CartApiTests extends TestBaseApi {
         assertThat(response.getErrors().get(0).getMessage()).isEqualTo("Товара с артикулом " + productCode + " нет в наличии.");
 
     }
+    @Test
+    @DisplayName("Очистка корзины")
+    public void clearCartTest() {
+        AuthApi authApi = new AuthApi();
+        Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");
+
+        TestStepsApi testStepsApi = new TestStepsApi();
+        testStepsApi.clearCart(cookies);
+
+    }
 
 }
