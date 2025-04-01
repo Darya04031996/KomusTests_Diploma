@@ -17,7 +17,7 @@ import static common.TestData.getTestData;
 public class FavoriteTests extends TestBase {
     final ProductPage productPage = new ProductPage();
     final LoginPage loginPage = new LoginPage();
-    final String product = getTestData("product");
+    final String product = getTestData("favoriteProduct");
 
     @Test
     @Owner("Мельгунова Дарья")

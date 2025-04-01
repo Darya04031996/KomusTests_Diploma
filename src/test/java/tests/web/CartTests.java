@@ -16,7 +16,7 @@ import static common.TestData.getTestData;
 public class CartTests extends TestBase {
     final ProductPage productPage = new ProductPage();
     final CartPage cartPage = new CartPage();
-    final String product = getTestData("product");
+    final String product = getTestData("addProduct");
 
     @Test
     @Owner("Мельгунова Дарья")

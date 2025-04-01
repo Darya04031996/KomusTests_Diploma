@@ -1,0 +1,16 @@
+{
+    "base": {
+    "project": "Telegram bot Darya",
+    "environment": "STAGE",
+    "comment": "comment here @melgunova",
+    "reportLink": "https://jenkins.autotests.cloud/job/RegistrationFormWithFaker_simple/9/",
+    "language": "en",
+    "allureFolder": "allure-report",
+    "enableChart": true
+  },
+  "telegram": {
+   "token": "7727760830:AAGml4orX0zt32dgcwgH3oSWq3PYpAvpzf0",
+   "chat": "-4733468217",
+   "replyTo": ""
+ }
+}
