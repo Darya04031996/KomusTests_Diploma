@@ -30,7 +30,7 @@ public class TestStepsApi {
         return profileResponse.getPayload();
     }
 
-    @Step("Добавить товар '{productCode}' в корзину с количеством {qty}")
+    @Step("Добавить товар '{productCode}' в корзину с количеством {quantity}")
     public AddToCartResponseModel addProductToCart(String productCode, int quantity, Map<String, String> cookies) {
         return given()
                 .spec(requestSpec)

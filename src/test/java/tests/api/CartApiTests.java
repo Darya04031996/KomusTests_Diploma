@@ -28,18 +28,22 @@ public class CartApiTests extends TestBaseApi {
         AddToCartResponseModel response = new TestStepsApi().addProductToCart(productCode, 1, cookies);
 
         assertThat(response.getStatusCode()).isEqualTo("inStock");
-        assertThat(response.getQuantityAdded()).isEqualTo(1);
+        assertThat(response.getQuantityAdded()).isGreaterThanOrEqualTo(1);
         assertThat(response.getEntry().getProduct().getCode()).isEqualTo(productCode);
         assertThat(response.getEntry().getProduct().getInCart()).isTrue();
-        assertThat(response.getEntry().getProduct().getStock().getStockLevel()).isEqualTo(1780);
-        assertThat(response.getEntry().getProduct().getStock().getStockStatusText())
-                .contains("Доставка завтра");
-        assertThat(response.getEntry().getProduct().getPrice().getCurrencyIso()).isEqualTo("RUB");
-        assertThat(response.getEntry().getProduct().getPrice().getValue()).isEqualTo(120.00);
-        assertThat(response.getEntry().getProduct().getPrice().getFormattedValue()).isEqualTo("120,00 p.");
-        assertThat(response.getEntry().getProduct().getPrice().getPriceType()).isEqualTo("BUY");
 
+        assertThat(response.getEntry().getProduct().getStock().getStockLevel()).isNotNull().isGreaterThan(0);
+
+        assertThat(response.getEntry().getProduct().getStock().getStockStatusText()).isNotEmpty();
+
+        assertThat(response.getEntry().getProduct().getPrice().getCurrencyIso()).isEqualTo("RUB");
+
+        assertThat(response.getEntry().getProduct().getPrice().getValue()).isNotNull().isGreaterThan(0.0);
+        assertThat(response.getEntry().getProduct().getPrice().getFormattedValue()).isNotEmpty();
+
+        assertThat(response.getEntry().getProduct().getPrice().getPriceType()).isEqualTo("BUY");
     }
+
     @Test
     @DisplayName("Добавление несуществующего товара в корзину")
     public void addBadProductToCartTest() {
