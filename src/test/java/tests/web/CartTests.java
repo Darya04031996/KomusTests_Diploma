@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import pages.CartPage;
 import pages.ProductPage;
 
-import static common.TestData.getTestData;
+import static utils.TestData.getTestData;
 
 @DisplayName("UI тесты на корзину")
 @Tag("WEB")

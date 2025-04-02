@@ -1,4 +1,4 @@
-package common.helpers;
+package helpers;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Attachment;
@@ -13,44 +13,45 @@ import static com.codeborne.selenide.Selenide.sessionId;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.openqa.selenium.logging.LogType.BROWSER;
 
-public class Attach {
-
+public class Attachments {
     @Attachment(value = "{attachName}", type = "image/png")
-    public static byte[] screenshotAs(String attachName) {
+    public static byte[] addScreenshot(String attachName) {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
     @Attachment(value = "Page source", type = "text/plain")
-    public static byte[] pageSource() {
+    public static byte[] addPageSource() {
         return getWebDriver().getPageSource().getBytes(StandardCharsets.UTF_8);
     }
 
     @Attachment(value = "{attachName}", type = "text/plain")
-    public static String attachAsText(String attachName, String message) {
+    public static String addAttachAsText(String attachName, String message) {
         return message;
     }
 
-    public static void browserConsoleLogs() {
-        attachAsText(
+    public static void addBrowserConsoleLogs() {
+        addAttachAsText(
                 "Browser console logs",
                 String.join("\n", Selenide.getWebDriverLogs(BROWSER))
         );
     }
 
-    @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
-    public static String addVideo(String wdHost) {
-        return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + getVideoUrl(wdHost)
-                + "' type='video/mp4'></video></body></html>";
-    }
+    public static URL getVideoUrl() {
+        String SELENOID_HOST = System.getProperty("selenoid_host");
+        String videoUrl = "https://" + SELENOID_HOST + "/video/" + sessionId() + ".mp4";
 
-    public static URL getVideoUrl(String wdHost) {
-        String videoUrl = "https://" + wdHost + "/video/" + sessionId() + ".mp4";
         try {
             return new URL(videoUrl);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
+    public static String addVideo() {
+        return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
+                + getVideoUrl()
+                + "' type='video/mp4'></video></body></html>";
     }
 }

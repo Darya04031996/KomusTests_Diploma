@@ -1,4 +1,4 @@
-package api.auth;
+package api.steps;
 
 import api.models.LoginRequestModel;
 import api.specs.KomusSpec;

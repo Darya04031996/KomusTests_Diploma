@@ -1,6 +1,6 @@
 package tests.web;
 
-import common.TestData;
+import utils.TestData;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 import pages.ProductPage;
 
-import static common.TestData.getTestData;
+import static utils.TestData.getTestData;
 
 @DisplayName("UI тесты на избранное")
 @Tag("WEB")
@@ -26,7 +26,7 @@ public class FavoriteTests extends TestBase {
     @DisplayName("Проверка добавления товара в избранное")
     public void addProductToFavoritesTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.email, TestData.password)
+                .loginWithEmailAndPassword(TestData.getEmail(), TestData.getPassword())
                 .checkUserIsLoggedIn();
         productPage.openPage(product)
                 .checkProductSku(product)
@@ -41,7 +41,7 @@ public class FavoriteTests extends TestBase {
     @DisplayName("Проверка удаления продукта из избранного")
     public void checkProductDeletingFromFavoritesTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.email, TestData.password)
+                .loginWithEmailAndPassword(TestData.getEmail(), TestData.getPassword())
                 .checkUserIsLoggedIn();
         productPage
                 .openPage(product)

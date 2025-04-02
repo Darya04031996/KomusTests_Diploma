@@ -1,9 +1,12 @@
 package tests.api;
 
-import api.auth.AuthApi;
 import api.models.ProfileApiModel;
 
+import api.steps.AuthApi;
 import api.steps.TestStepsApi;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -18,6 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class ProfileApiTest extends TestBaseApi {
 
     @Test
+    @Owner("Мельгунова Дарья")
+    @Feature("Профиль пользователя")
+    @Story("API: Получение и проверка данных профиля пользователя")
+    @DisplayName("Проверка данных профиля пользователя")
     public void testGetProfile() {
         AuthApi authApi = new AuthApi();
         Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");

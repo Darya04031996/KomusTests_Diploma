@@ -1,8 +1,9 @@
 package tests.api;
 
-import api.auth.AuthApi;
+
 import api.models.FavoriteListResponseModel;
 import api.models.FavoriteResponseModel;
+import api.steps.AuthApi;
 import api.steps.TestStepsApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -10,8 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static common.TestData.getTestData;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static utils.TestData.getTestData;
 
 @DisplayName("API тесты на добавление товара в избранное")
 @Tag("API")

@@ -8,13 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class TestBaseApi {
     @BeforeAll
-    static void settingsBeforeAll() {
-        RestAssured.baseURI = "https://www.komus.ru/";
+    static void configParams() {
+        RestAssured.baseURI = System.getProperty("baseURI", "https://www.komus.ru/");
     }
 
     @BeforeEach
-    void beforeEach() {
+    void addSelenideListener() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
+
 }
 

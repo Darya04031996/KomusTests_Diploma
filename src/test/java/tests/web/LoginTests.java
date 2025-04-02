@@ -1,6 +1,5 @@
 package tests.web;
 
-import common.TestData;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
@@ -9,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.LoginPage;
+import utils.TestData;
 
 
 @DisplayName("UI тесты на авторизацию")
@@ -25,7 +25,7 @@ public class LoginTests extends TestBase {
     @DisplayName("Проверка успешного логина")
     public void successfulLoginTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.email, TestData.password)
+                .loginWithEmailAndPassword(TestData.getEmail(), TestData.getPassword())
                 .checkUserIsLoggedIn();
     }
 
@@ -37,7 +37,7 @@ public class LoginTests extends TestBase {
     @DisplayName("Проверка неуспешного входа из-за неправильного пароля")
     public void incorrectPasswordTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.email, TestData.password1)
+                .loginWithEmailAndPassword(TestData.getEmail(), TestData.getPassword1())
                 .checkPasswordError();
         loginPage.verifyUserStayedOnLoginPage();
     }
@@ -50,7 +50,7 @@ public class LoginTests extends TestBase {
     @DisplayName("Проверка неуспешного входа из-за неправильного Email")
     public void incorrectEmailTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.email1, TestData.password)
+                .loginWithEmailAndPassword(TestData.getEmail1(), TestData.getPassword())
                 .checkEmailError();
         loginPage.verifyUserStayedOnLoginPage();
     }
@@ -63,7 +63,7 @@ public class LoginTests extends TestBase {
     @DisplayName("Проверка неуспешного входа из-за пустого Email")
     public void emptyLoginFieldTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword("", TestData.password)
+                .loginWithEmailAndPassword("", TestData.getPassword())
                 .checkUserIsNotLoggedInEmptyLogin();
     }
 
@@ -75,7 +75,7 @@ public class LoginTests extends TestBase {
     @DisplayName("Проверка неуспешного входа из-за пустого пароля")
     public void emptyPasswordFieldTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.email, "")
+                .loginWithEmailAndPassword(TestData.getEmail(), "")
                 .checkUserIsNotLoggedInEmptyPassword();
     }
 
@@ -88,7 +88,7 @@ public class LoginTests extends TestBase {
     public void captchaAppearsAfterMultipleFailedAttempts() {
         loginPage.openPage();
         for (int i = 0; i < 5; i++) {
-            loginPage.loginWithEmailAndPassword(TestData.email, TestData.password1);
+            loginPage.loginWithEmailAndPassword(TestData.getEmail(), TestData.getPassword1());
         }
         loginPage.verifyCaptchaAppears();
     }

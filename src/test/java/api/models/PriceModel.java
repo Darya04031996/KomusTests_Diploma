@@ -24,5 +24,6 @@ public class PriceModel {
     private Boolean multiplyCoinsByQuantity;
     private Integer priceTypeId;
     private String priceId;
+    private String priceRegionId;
 }
 
