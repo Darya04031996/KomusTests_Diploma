@@ -1,44 +1,56 @@
 package tests.web;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.WebDriverConfig;
-import helpers.Attachments;
+import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.util.Map;
+
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
-
-    boolean isRemote = Boolean.parseBoolean(System.getProperty("isRemote", "false"));
-    String environment = System.getProperty("env");
+    static WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
 
     @BeforeAll
-    static void configParams() {
-        WebDriverConfig webDriverConfig = new WebDriverConfig();
-        webDriverConfig.configParams();
-    }
-    @BeforeEach
-    void setupTest() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
+    static void setUpBrowserConfiguration() {
+
+        Configuration.baseUrl = config.getBaseUrl();
+        Configuration.browser = config.getBrowserName();
+        Configuration.browserVersion = config.getBrowserVersion();
+        Configuration.pageLoadStrategy = config.getLoadStrategy();
+        Configuration.browserSize = config.getBrowserSize();
+
+        if (config.isRemote()) {
+            Configuration.remote = config.getRemoteUrl();
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            Configuration.browserCapabilities = capabilities;
+            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+                    "enableVNC", true,
+                    "enableVideo", true
+            ));
+
+        }
     }
 
+    @BeforeEach
+    void addListener () {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+    }
     @AfterEach
-    void addAttachments() {
-        if (isRemote || environment.equals("remote")) {
-            if (!Configuration.browser.equals("firefox")) {
-                Attachments.addScreenshot("Test screenshot");
-                Attachments.addPageSource();
-                Attachments.addBrowserConsoleLogs();
-                Attachments.addVideo();
-            }
-        } else {
-            Attachments.addScreenshot("Test screenshot");
-            Attachments.addPageSource();
-            Attachments.addBrowserConsoleLogs();
+    void addAttachments () {
+        Attach.screenshotAs("Last screenshot");
+        Attach.addVideo();
+        if (!System.getProperty("browser").equalsIgnoreCase("firefox")) {
+            Attach.pageSource();
+            Attach.browserConsoleLogs();
         }
-        Selenide.closeWebDriver();
+        closeWebDriver();
     }
 }

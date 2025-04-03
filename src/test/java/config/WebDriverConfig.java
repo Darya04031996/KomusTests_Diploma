@@ -1,67 +1,39 @@
 package config;
 
-import com.codeborne.selenide.Configuration;
-import org.aeonbits.owner.ConfigFactory;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.aeonbits.owner.Config;
 
-import java.util.Map;
+@Config.Sources({
+        "classpath:${env}.properties",
+        "system:properties",
+        "system:env"
+})
 
-public class WebDriverConfig {
-    private  final ConfigData configData = ConfigFactory.create(ConfigData.class, System.getProperties());
-    private final SelenoidConfig selenoidConfig = ConfigFactory.create(SelenoidConfig.class, System.getProperties());
+public interface WebDriverConfig extends Config {
 
+    @Key("browserName")
+    @DefaultValue("CHROME")
+    String getBrowserName();
 
+    @Key("browserVersion")
+    @DefaultValue("100.0")
+    String getBrowserVersion();
 
-    public void configParams() {
-        boolean isRemote = Boolean.parseBoolean(System.getProperty("isRemote", "false"));
-        String environment = System.getProperty("env");
+    @Key("baseUrl")
+    @DefaultValue("https://www.komus.ru/")
+    String getBaseUrl();
 
-        Configuration.pageLoadStrategy = "eager";
-        if (isRemote) {
-            Configuration.baseUrl = System.getProperty("baseUrl", "https://www.komus.ru/");
-            Configuration.browserSize = System.getProperty("browserSize", "1080x920");
-            Configuration.browser = System.getProperty("browser", "chrome");
-            Configuration.browserVersion = System.getProperty("browserVersion");
+    @Key("loadStrategy")
+    @DefaultValue("eager")
+    String getLoadStrategy();
 
-            String SELENOID_HOST = System.getProperty("selenoidHost");
-            String username = selenoidConfig.username();
-            String password = selenoidConfig.password();
-            Configuration.remote = "https://" + username + ":" + password + "@" + SELENOID_HOST + "/wd/hub";
+    @Key("browserSize")
+    @DefaultValue("1920x1080")
+    String getBrowserSize();
 
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                    "enableVNC", true,
-                    "enableVideo", true
-            ));
-            Configuration.browserCapabilities = capabilities;
+    @Key("isRemote")
+    @DefaultValue("false")
+    Boolean isRemote();
 
-        } else {
-            if (environment.equals("remote")) {
-                Configuration.baseUrl = configData.baseUrl();
-                Configuration.browser = configData.browser();
-                Configuration.browserSize = configData.browserSize();
-                Configuration.browserVersion = configData.browserVersion();
-
-
-                String SELENOID_HOST = configData.remoteUrl();
-                String username = selenoidConfig.username();
-                String password = selenoidConfig.password();
-                Configuration.remote = "https://" + username + ":" + password + "@" + SELENOID_HOST + "/wd/hub";
-
-                DesiredCapabilities capabilities = new DesiredCapabilities();
-                capabilities.setCapability("selenoid:options", Map.<String, Object>of(
-                        "enableVNC", true,
-                        "enableVideo", true
-                ));
-                Configuration.browserCapabilities = capabilities;
-            }
-            Configuration.baseUrl = configData.baseUrl();
-            Configuration.browser = configData.browser();
-            Configuration.browserSize = configData.browserSize();
-            Configuration.browserVersion = configData.browserVersion();
-        }
-    }
-
-
-
+    @Key("remoteUrl")
+    String getRemoteUrl();
 }
