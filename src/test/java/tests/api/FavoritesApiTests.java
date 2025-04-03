@@ -8,7 +8,6 @@ import api.steps.TestStepsApi;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -32,7 +31,7 @@ public class FavoritesApiTests extends TestBaseApi {
     public void addProductToFavoritesTest() {
 
         AuthApi authApi = new AuthApi();
-        Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");
+        Map<String, String> cookies = authApi.login(TestBaseApi.credentialsConfig.username(), TestBaseApi.credentialsConfig.password());
         final String productCode = getTestData("favoriteProduct");
         FavoriteResponseModel response = new TestStepsApi().addProductToFavorites(productCode, cookies);
         assertThat(response.getFavoritesCount()).isGreaterThan(0);
@@ -45,7 +44,7 @@ public class FavoritesApiTests extends TestBaseApi {
     @DisplayName("Проверка получения списка избранных товаров")
         public void getFavoriteProductsTest() {
             AuthApi authApi = new AuthApi();
-            Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");
+        Map<String, String> cookies = authApi.login(TestBaseApi.credentialsConfig.username(), TestBaseApi.credentialsConfig.password());
 
             FavoriteListResponseModel response = new TestStepsApi().getFavoriteProducts(cookies);
             assertThat(response).isNotNull();
@@ -59,7 +58,7 @@ public class FavoritesApiTests extends TestBaseApi {
     public void removeProductFromFavoritesTest() {
 
         AuthApi authApi = new AuthApi();
-        Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");
+        Map<String, String> cookies = authApi.login(TestBaseApi.credentialsConfig.username(), TestBaseApi.credentialsConfig.password());
 
         final String productCode = getTestData("favoriteProduct");
 

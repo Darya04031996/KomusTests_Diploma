@@ -1,23 +1,20 @@
 package utils;
 
-import config.CredentialsConfig;
-import org.aeonbits.owner.ConfigFactory;
+import tests.web.TestBase;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Properties;
 
 public class TestData {
-    public static final String email = System.getProperty("email", "darya.melgunova@gmail.com");
-    public static final String password = System.getProperty("password", "BestLife2025");
     public static final String email1 = System.getProperty("email", "wrongemail@gmail.com");
     public static final String password1 = System.getProperty("password", "BestLife2024");
 
+    public static final String email = TestBase.credentialsConfig.username();
+    public static final String password = TestBase.credentialsConfig.password();
 
     public static String getTestData(String product) {
-        ClassLoader classLoader = TestData.class.getClassLoader();
         File file = new File("src/test/resources/data/test.data");
 
         Properties testData = new Properties();

@@ -27,7 +27,7 @@ public class ProfileApiTest extends TestBaseApi {
     @DisplayName("Проверка данных профиля пользователя")
     public void testGetProfile() {
         AuthApi authApi = new AuthApi();
-        Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");
+        Map<String, String> cookies = authApi.login(TestBaseApi.credentialsConfig.username(), TestBaseApi.credentialsConfig.password());
 
         TestStepsApi testStepsApi = new TestStepsApi();
         ProfileApiModel profile = testStepsApi.getProfile(cookies);

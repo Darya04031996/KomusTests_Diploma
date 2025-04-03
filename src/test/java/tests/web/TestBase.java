@@ -2,6 +2,7 @@ package tests.web;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import config.CredentialsConfig;
 import config.WebDriverConfig;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -17,7 +18,7 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
     static WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
-
+    public static CredentialsConfig credentialsConfig = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
     @BeforeAll
     static void setUpBrowserConfiguration() {
 
@@ -47,7 +48,7 @@ public class TestBase {
     void addAttachments () {
         Attach.screenshotAs("Last screenshot");
         Attach.addVideo();
-        if (!System.getProperty("browser").equalsIgnoreCase("firefox")) {
+        if (!config.getBrowserName().equalsIgnoreCase("firefox")) {
             Attach.pageSource();
             Attach.browserConsoleLogs();
         }

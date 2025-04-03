@@ -29,7 +29,7 @@ public class CartApiTests extends TestBaseApi {
     public void addProductToCartTest() {
         final String productCode = getTestData("addProduct");
         AuthApi authApi = new AuthApi();
-        Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");
+        Map<String, String> cookies = authApi.login(TestBaseApi.credentialsConfig.username(), TestBaseApi.credentialsConfig.password());
 
         AddToCartResponseModel response = new TestStepsApi().addProductToCart(productCode, 1, cookies);
 
@@ -58,7 +58,7 @@ public class CartApiTests extends TestBaseApi {
     public void addBadProductToCartTest() {
         final String productCode = getTestData("unknownProduct");
         AuthApi authApi = new AuthApi();
-        Map<String, String> cookies = authApi.login("darya.melgunova@gmail.com", "BestLife2025");
+        Map<String, String> cookies = authApi.login(TestBaseApi.credentialsConfig.username(), TestBaseApi.credentialsConfig.password());
 
         AddToCartResponseModel response = new TestStepsApi().addBadProductToCart(productCode, 1, cookies);
 
