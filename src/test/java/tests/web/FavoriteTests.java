@@ -26,7 +26,7 @@ public class FavoriteTests extends TestBase {
     @DisplayName("Проверка добавления товара в избранное")
     public void addProductToFavoritesTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.getEmail(), TestData.getPassword())
+                .loginWithEmailAndPassword(TestData.email, TestData.password)
                 .checkUserIsLoggedIn();
         productPage.openPage(product)
                 .checkProductSku(product)
@@ -41,7 +41,7 @@ public class FavoriteTests extends TestBase {
     @DisplayName("Проверка удаления продукта из избранного")
     public void checkProductDeletingFromFavoritesTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.getEmail(), TestData.getPassword())
+                .loginWithEmailAndPassword(TestData.email, TestData.password)
                 .checkUserIsLoggedIn();
         productPage
                 .openPage(product)

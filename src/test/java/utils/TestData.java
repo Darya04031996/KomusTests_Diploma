@@ -10,23 +10,10 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class TestData {
-    private static final CredentialsConfig credentialsConfig = ConfigFactory.create(CredentialsConfig.class,System.getProperties());
-
-    public static String getEmail() {
-        return System.getProperty("email", credentialsConfig.username());
-    }
-
-    public static String getPassword() {
-        return System.getProperty("password", credentialsConfig.password());
-    }
-
-    public static String getEmail1() {
-        return System.getProperty("email1", "wrongemail@gmail.com");
-    }
-
-    public static String getPassword1() {
-        return System.getProperty("password1", "BestLife2024");
-    }
+    public static final String email = System.getProperty("email", "darya.melgunova@gmail.com");
+    public static final String password = System.getProperty("password", "BestLife2025");
+    public static final String email1 = System.getProperty("email", "wrongemail@gmail.com");
+    public static final String password1 = System.getProperty("password", "BestLife2024");
 
 
     public static String getTestData(String product) {

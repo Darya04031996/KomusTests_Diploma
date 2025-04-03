@@ -1,5 +1,6 @@
 package api.steps;
 import api.models.*;
+import api.specs.KomusSpec;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
@@ -18,7 +19,7 @@ public class TestStepsApi {
 
     @Step("Получить данные профиля")
     public ProfileApiModel getProfile(Map<String, String> cookies) {
-        Response response = given(requestSpec)
+        Response response = given(KomusSpec.requestSpec)
                 .cookies(cookies)
                 .when()
                 .get(PROFILE_URL)
@@ -99,7 +100,7 @@ public class TestStepsApi {
     }
     @Step("Очистить корзину")
     public void clearCart(Map<String, String> cookies) {
-        given()
+         given()
                 .baseUri("https://komus.ru")
                 .spec(requestSpec)
                 .cookies(cookies)
