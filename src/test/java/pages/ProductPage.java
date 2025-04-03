@@ -85,6 +85,7 @@ public class ProductPage {
 
         return this;
     }
+
     @Step("Открыть корзину")
     public ProductPage openCart() {
         open("/cart");
