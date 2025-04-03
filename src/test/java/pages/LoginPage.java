@@ -21,7 +21,6 @@ public class LoginPage extends TestBase {
     private final SelenideElement pageTitle = $("h4[data-test-id='page-title']");
     private final SelenideElement captchaImage = $(".v-captcha__image");
     private final SelenideElement captchaInput = $("input[name='captcha']");
-    private final SelenideElement emailField1 = $("[autocomplete='email']");
 
     public LoginPage openPage() {
         open("/login");

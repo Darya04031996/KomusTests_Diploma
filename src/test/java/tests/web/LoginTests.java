@@ -20,7 +20,6 @@ public class LoginTests extends TestBase {
     final LoginPage loginPage = new LoginPage();
 
     @Test
-    @Disabled
     @Owner("Мельгунова Дарья")
     @Feature("Реализация логина на сайте")
     @Story("UI: Успешный логин")
@@ -32,7 +31,6 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    @Disabled
     @Owner("Мельгунова Дарья")
     @Feature("Реализация логина на сайте")
     @Story("UI: Неуспешный пароль")
@@ -45,7 +43,6 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    @Disabled
     @Owner("Мельгунова Дарья")
     @Feature("Реализация логина на сайте")
     @Story("UI: Неуспешный Email")
@@ -58,7 +55,6 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    @Disabled
     @Owner("Мельгунова Дарья")
     @Feature("Реализация логина на сайте")
     @Story("UI: Неуспешный логин")
@@ -70,7 +66,6 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    @Disabled
     @Owner("Мельгунова Дарья")
     @Feature("Реализация логина на сайте")
     @Story("UI: Неуспешный пароль")
@@ -82,7 +77,6 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    @Disabled
     @Owner("Мельгунова Дарья")
     @Feature("Реализация логина на сайте")
     @Story("UI: Проверка captcha")
