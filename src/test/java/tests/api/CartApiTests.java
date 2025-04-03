@@ -3,7 +3,6 @@ package tests.api;
 import api.models.AddToCartResponseModel;
 import api.steps.AuthApi;
 import api.steps.TestStepsApi;
-
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
@@ -13,9 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-
-import static utils.TestData.getTestData;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static utils.TestData.getTestData;
 
 @DisplayName("API тесты на добавление товара в корзину")
 @Tag("API")
@@ -37,16 +35,11 @@ public class CartApiTests extends TestBaseApi {
         assertThat(response.getQuantityAdded()).isGreaterThanOrEqualTo(1);
         assertThat(response.getEntry().getProduct().getCode()).isEqualTo(productCode);
         assertThat(response.getEntry().getProduct().getInCart()).isTrue();
-
         assertThat(response.getEntry().getProduct().getStock().getStockLevel()).isNotNull().isGreaterThan(0);
-
         assertThat(response.getEntry().getProduct().getStock().getStockStatusText()).isNotEmpty();
-
         assertThat(response.getEntry().getProduct().getPrice().getCurrencyIso()).isEqualTo("RUB");
-
         assertThat(response.getEntry().getProduct().getPrice().getValue()).isNotNull().isGreaterThan(0.0);
         assertThat(response.getEntry().getProduct().getPrice().getFormattedValue()).isNotEmpty();
-
         assertThat(response.getEntry().getProduct().getPrice().getPriceType()).isEqualTo("BUY");
     }
 
@@ -67,6 +60,7 @@ public class CartApiTests extends TestBaseApi {
         assertThat(response.getErrors().get(0).getMessage()).isEqualTo("Товара с артикулом " + productCode + " нет в наличии.");
 
     }
+
     @Test
     @Owner("Мельгунова Дарья")
     @Feature("Реализация корзины пользователя с товарами")
