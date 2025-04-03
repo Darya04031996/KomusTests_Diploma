@@ -39,7 +39,7 @@ public class LoginTests extends TestBase {
     @DisplayName("Проверка неуспешного входа из-за неправильного пароля")
     public void incorrectPasswordTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.email, TestData.password)
+                .loginWithEmailAndPassword(TestData.email, password1)
                 .checkPasswordError();
         loginPage.verifyUserStayedOnLoginPage();
     }
@@ -52,7 +52,7 @@ public class LoginTests extends TestBase {
     @DisplayName("Проверка неуспешного входа из-за неправильного Email")
     public void incorrectEmailTest() {
         loginPage.openPage()
-                .loginWithEmailAndPassword(TestData.email, TestData.password)
+                .loginWithEmailAndPassword(email1, TestData.password)
                 .checkEmailError();
         loginPage.verifyUserStayedOnLoginPage();
     }
