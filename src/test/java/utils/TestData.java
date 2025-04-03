@@ -18,7 +18,7 @@ public class TestData {
 
     public static String getTestData(String product) {
         ClassLoader classLoader = TestData.class.getClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource("data/test.data")).getFile());
+        File file = new File("src/test/resources/data/test.data");
 
         Properties testData = new Properties();
         try {
