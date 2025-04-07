@@ -3,12 +3,14 @@ package tests.web;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.CartPage;
 import pages.ProductPage;
 
+import static com.codeborne.selenide.Selenide.$;
 import static utils.TestData.getTestData;
 
 @DisplayName("UI тесты на корзину")
@@ -18,6 +20,14 @@ public class CartTests extends TestBase {
     final CartPage cartPage = new CartPage();
     final String product = getTestData("addProduct");
 
+    @BeforeEach
+    void clearCartBeforeTest() {
+        productPage.openCart();
+        if ($(".product-card-list-slim--cart-item").exists()) {
+            cartPage.removeProductFromCart();
+            cartPage.verifyCartIsEmpty();
+        }
+    }
     @Test
     @Owner("Мельгунова Дарья")
     @Feature("Реализация корзины пользователя с товарами")
@@ -41,7 +51,6 @@ public class CartTests extends TestBase {
         productPage
                 .openPage(product)
                 .addToCart()
-                .checkProductInCart()
                 .openCart();
         cartPage
                 .increaseProductQuantity()
@@ -57,7 +66,6 @@ public class CartTests extends TestBase {
         productPage
                 .openPage(product)
                 .addToCart()
-                .checkProductInCart()
                 .openCart();
         cartPage
                 .increaseProductQuantity()
@@ -73,7 +81,6 @@ public class CartTests extends TestBase {
         productPage
                 .openPage(product)
                 .addToCart()
-                .checkProductInCart()
                 .openCart();
         cartPage
                 .removeProductFromCart()
@@ -81,6 +88,5 @@ public class CartTests extends TestBase {
 
     }
 
-
-    }
+}
 

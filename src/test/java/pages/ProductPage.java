@@ -19,7 +19,6 @@ public class ProductPage {
     private final SelenideElement goToFavoritesButton = $("a.favorite-counter__link");
     private final SelenideElement addedToCartButton = $("input.js-edit-count-in-cart[value='Изменить']");
 
-    // Открытие страницы товара
     @Step("Открыть страницу товара '{productId}'")
     public ProductPage openPage(String productId) {
         open("https://www.komus.ru/katalog/tekhnika/kompyutery-i-periferiya/periferijnye-ustrojstva/myshi/myshi-besprovodnye/mysh-besprovodnaya-logitech-m171-cherno-seraya-910-004643-/p/" + productId + "/?text=" + productId);
@@ -27,7 +26,6 @@ public class ProductPage {
         return this;
     }
 
-    // Проверка артикула товара
     @Step("Проверить, что артикул товара соответствует '{expectedSku}'")
     public ProductPage checkProductSku(String expectedSku) {
         productSku.shouldHave(text(expectedSku));
@@ -95,6 +93,16 @@ public class ProductPage {
     @Step("Проверить, что кнопка изменилась на 'Изменить'")
     public ProductPage checkProductInCart() {
         addedToCartButton.shouldBe(visible);
+        return this;
+    }
+
+    @Step("Очистить список избранного перед тестом")
+    public ProductPage clearFavoritesBeforeTest() {
+        openFavoritesList();
+        while ($(".v-button-icon.remove-icon").exists()) {
+            removeFromFavorites();
+            sleep(500);
+        }
         return this;
     }
 }
