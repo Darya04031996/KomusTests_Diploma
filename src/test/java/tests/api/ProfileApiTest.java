@@ -2,7 +2,6 @@ package tests.api;
 
 import api.models.ProfileApiModel;
 
-import api.steps.AuthApi;
 import api.steps.TestStepsApi;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
@@ -10,8 +9,6 @@ import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -25,12 +22,9 @@ public class ProfileApiTest extends TestBaseApi {
     @Feature("Профиль пользователя")
     @Story("API: Получение и проверка данных профиля пользователя")
     @DisplayName("Проверка данных профиля пользователя")
-    public void testGetProfile() {
-        AuthApi authApi = new AuthApi();
-        Map<String, String> cookies = authApi.login(TestBaseApi.credentialsConfig.username(), TestBaseApi.credentialsConfig.password());
+    public void testGetProfile(){
 
-        TestStepsApi testStepsApi = new TestStepsApi();
-        ProfileApiModel profile = testStepsApi.getProfile(cookies);
+        ProfileApiModel profile = new TestStepsApi().getProfile(cookies);
 
 
         assertEquals("darya.melgunova@gmail.com", profile.getEmail(), "Email не совпадает");

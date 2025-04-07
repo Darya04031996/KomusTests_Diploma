@@ -3,7 +3,7 @@
     "project": "Telegram bot Darya",
     "environment": "STAGE",
     "comment": "comment here @melgunova",
-    "reportLink": "https://jenkins.autotests.cloud/job/RegistrationFormWithFaker_simple/9/",
+    "reportLink": "https://jenkins.autotests.cloud/job/KomusQaTests_Diploma/4/",
     "language": "en",
     "allureFolder": "allure-report",
     "enableChart": true
