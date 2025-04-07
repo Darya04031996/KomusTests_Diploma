@@ -25,7 +25,6 @@ public class FavoriteTests extends TestBase {
         loginPage.openPage()
                 .loginWithEmailAndPassword(TestData.email, TestData.password)
                 .checkUserIsLoggedIn();
-        productPage.clearFavoritesBeforeTest();
     }
     @Test
     @Owner("Мельгунова Дарья")

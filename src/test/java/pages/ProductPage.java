@@ -96,14 +96,5 @@ public class ProductPage {
         return this;
     }
 
-    @Step("Очистить список избранного перед тестом")
-    public ProductPage clearFavoritesBeforeTest() {
-        openFavoritesList();
-        while ($(".v-button-icon.remove-icon").exists()) {
-            removeFromFavorites();
-            sleep(500);
-        }
-        return this;
-    }
 }
 
