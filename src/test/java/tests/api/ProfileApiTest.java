@@ -1,8 +1,8 @@
 package tests.api;
 
-import api.models.ProfileApiModel;
+import api.models.ProfilePayload;
 
-import api.steps.TestStepsApi;
+import api.steps.UserApiSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
@@ -24,7 +24,7 @@ public class ProfileApiTest extends TestBaseApi {
     @DisplayName("Проверка данных профиля пользователя")
     public void testGetProfile(){
 
-        ProfileApiModel profile = new TestStepsApi().getProfile(cookies);
+        ProfilePayload profile = new UserApiSteps().getProfile(cookies);
 
 
         assertEquals("darya.melgunova@gmail.com", profile.getEmail(), "Email не совпадает");

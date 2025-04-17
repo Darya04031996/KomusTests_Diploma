@@ -1,4 +1,4 @@
-package api.specs;
+package api;
 
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -10,7 +10,7 @@ import static helpers.CustomAllureListener.withCustomTemplates;
 import static io.restassured.RestAssured.with;
 
 
-public class KomusSpec {
+public class BaseSpec {
 
 
     public static final RequestSpecification requestSpec = with()
@@ -19,14 +19,11 @@ public class KomusSpec {
             .filter(withCustomTemplates())
             .log().all();
 
-    public static final ResponseSpecification responseSpecWithStatusCode200 = new ResponseSpecBuilder()
-            .expectStatusCode(200)
-            .log(LogDetail.ALL)
-            .build();
-
-    public static final ResponseSpecification responseSpecWithStatusCode400 = new ResponseSpecBuilder()
-            .expectStatusCode(400)
-            .log(LogDetail.ALL)
-            .build();
+    public static ResponseSpecification responseSpec(int statusCode) {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(statusCode)
+                .log(LogDetail.ALL)
+                .build();
+    }
 }
 

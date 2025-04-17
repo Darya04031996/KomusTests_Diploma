@@ -30,7 +30,6 @@ public interface WebDriverConfig extends Config {
     @DefaultValue("920x1080")
     String getBrowserSize();
 
-    @Key("isRemote")
     @DefaultValue("false")
     Boolean isRemote();
 

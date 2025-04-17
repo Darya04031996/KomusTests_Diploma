@@ -1,15 +1,15 @@
 package api.steps;
 import api.models.*;
-import api.specs.KomusSpec;
+import api.BaseSpec;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 import java.util.Map;
 
-import static api.specs.KomusSpec.*;
+import static api.BaseSpec.*;
 import static io.restassured.RestAssured.given;
 
-public class TestStepsApi {
+public class UserApiSteps {
     private static final String PROFILE_URL = "/api/profile";
     private static final String CART_ADD_URL = "/api/cart/add";
     private static final String CART_FAV_URL = "/api/favorites/add";
@@ -18,13 +18,13 @@ public class TestStepsApi {
     private static final String CART_CLEAR_URL = "/cart/clear";
 
     @Step("Получить данные профиля")
-    public ProfileApiModel getProfile(Map<String, String> cookies) {
-        Response response = given(KomusSpec.requestSpec)
+    public ProfilePayload getProfile(Map<String, String> cookies) {
+        Response response = given(BaseSpec.requestSpec)
                 .cookies(cookies)
                 .when()
                 .get(PROFILE_URL)
                 .then()
-                .spec(responseSpecWithStatusCode200)
+                .spec(BaseSpec.responseSpec(200))
                 .extract()
                 .response();
 
@@ -42,7 +42,7 @@ public class TestStepsApi {
                 .when()
                 .post(CART_ADD_URL)
                 .then()
-                .spec(responseSpecWithStatusCode200)
+                .spec(BaseSpec.responseSpec(200))
                 .extract().as(AddToCartResponseModel.class);
     }
 
@@ -56,7 +56,7 @@ public class TestStepsApi {
                 .when()
                 .post(CART_ADD_URL)
                 .then()
-                .spec(responseSpecWithStatusCode400)
+                .spec(BaseSpec.responseSpec(400))
                 .extract().as(AddToCartResponseModel.class);
     }
 
@@ -69,7 +69,7 @@ public class TestStepsApi {
                 .when()
                 .post(CART_FAV_URL)
                 .then()
-                .spec(responseSpecWithStatusCode200)
+                .spec(BaseSpec.responseSpec(200))
                 .extract().as(FavoriteResponseModel.class);
     }
 
@@ -81,7 +81,7 @@ public class TestStepsApi {
                 .when()
                 .get(FAVORITES_GET_LIST_URL)
                 .then()
-                .spec(responseSpecWithStatusCode200)
+                .spec(BaseSpec.responseSpec(200))
                 .extract().as(FavoriteListResponseModel.class);
     }
 
@@ -94,7 +94,7 @@ public class TestStepsApi {
                 .when()
                 .post(FAVORITES_REMOVE_URL)
                 .then()
-                .spec(responseSpecWithStatusCode200)
+                .spec(BaseSpec.responseSpec(200))
                 .extract().as(FavoriteResponseModel.class)
                 .getFavoritesCount();
     }
@@ -107,7 +107,7 @@ public class TestStepsApi {
                 .when()
                 .get(CART_CLEAR_URL)
                 .then()
-                .spec(responseSpecWithStatusCode200);
+                 .spec(BaseSpec.responseSpec(200));
     }
     }
 

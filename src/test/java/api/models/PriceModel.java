@@ -1,13 +1,7 @@
 package api.models;
-
-
-import io.qameta.allure.internal.shadowed.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@JsonIgnoreProperties
 public class PriceModel {
     private String currencyIso;
     private Double value;

@@ -9,9 +9,9 @@ import org.aeonbits.owner.Config;
 
 public interface CredentialsConfig extends Config {
     @Key("email")
-    String username();
+    String getEmail();
 
     @Key("password")
-    String password();
+    String getPassword();
 
 }

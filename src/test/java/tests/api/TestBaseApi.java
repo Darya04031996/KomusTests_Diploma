@@ -1,9 +1,7 @@
 package tests.api;
 
-import api.steps.AuthApi;
-import com.codeborne.selenide.logevents.SelenideLogger;
+import api.steps.AuthApiSteps;
 import config.CredentialsConfig;
-import io.qameta.allure.selenide.AllureSelenide;
 import io.restassured.RestAssured;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.BeforeAll;
@@ -25,11 +23,10 @@ public class TestBaseApi {
 
     @BeforeEach
     void loginUser() {
-        cookies = new AuthApi().login(
-                credentialsConfig.username(),
-                credentialsConfig.password()
+        cookies = new AuthApiSteps().login(
+                credentialsConfig.getEmail(),
+                credentialsConfig.getPassword()
         );
-        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 }
 

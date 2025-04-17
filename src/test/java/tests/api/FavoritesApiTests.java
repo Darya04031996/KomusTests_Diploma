@@ -3,7 +3,7 @@ package tests.api;
 
 import api.models.FavoriteListResponseModel;
 import api.models.FavoriteResponseModel;
-import api.steps.TestStepsApi;
+import api.steps.UserApiSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
@@ -21,12 +21,12 @@ public class FavoritesApiTests extends TestBaseApi {
     @BeforeEach
     void setUpFavoriteProduct() {
 
-        new TestStepsApi().addProductToFavorites(productCode, cookies);
+        new UserApiSteps().addProductToFavorites(productCode, cookies);
     }
 
     @AfterEach
     void cleanFavoriteProduct() {
-        new TestStepsApi().removeProductFromFavorites(productCode, cookies);
+        new UserApiSteps().removeProductFromFavorites(productCode, cookies);
     }
 
     @Test
@@ -35,7 +35,7 @@ public class FavoritesApiTests extends TestBaseApi {
     @Story("API: Добавление товара в избранное")
     @DisplayName("Проверка добавления товара в избранное")
     public void addProductToFavoritesTest() {
-        FavoriteResponseModel response = new TestStepsApi().addProductToFavorites(productCode, cookies);
+        FavoriteResponseModel response = new UserApiSteps().addProductToFavorites(productCode, cookies);
         assertThat(response.getFavoritesCount()).isGreaterThan(0);
     }
 
@@ -45,7 +45,7 @@ public class FavoritesApiTests extends TestBaseApi {
     @Story("API: Получение списка избранных товаров")
     @DisplayName("Проверка получения списка избранных товаров")
     public void getFavoriteProductsTest() {
-        FavoriteListResponseModel response = new TestStepsApi().getFavoriteProducts(cookies);
+        FavoriteListResponseModel response = new UserApiSteps().getFavoriteProducts(cookies);
         assertThat(response).isNotNull();
         assertThat(response.getPayload().get(0).getCode()).isNotEmpty();
     }
@@ -56,7 +56,7 @@ public class FavoritesApiTests extends TestBaseApi {
     @Story("API: Удаление товара из избранного")
     @DisplayName("Проверка удаления товара из избранного")
     public void removeProductFromFavoritesTest() {
-        int favoritesCount = new TestStepsApi().removeProductFromFavorites(productCode, cookies);
+        int favoritesCount = new UserApiSteps().removeProductFromFavorites(productCode, cookies);
         assertThat(favoritesCount).isEqualTo(0);
     }
 }

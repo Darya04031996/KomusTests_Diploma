@@ -1,7 +1,7 @@
 package tests.api;
 
 import api.models.AddToCartResponseModel;
-import api.steps.TestStepsApi;
+import api.steps.UserApiSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
@@ -18,12 +18,12 @@ public class CartApiTests extends TestBaseApi {
 
     @BeforeEach
     void clearCartBefore() {
-        new TestStepsApi().clearCart(cookies);
+        new UserApiSteps().clearCart(cookies);
     }
 
     @AfterEach
     void clearCartAfter() {
-        new TestStepsApi().clearCart(cookies);
+        new UserApiSteps().clearCart(cookies);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class CartApiTests extends TestBaseApi {
     @DisplayName("Проверка добавления товара в корзину")
     public void addProductToCartTest() {
 
-        AddToCartResponseModel response = new TestStepsApi().addProductToCart(validProduct, 1, cookies);
+        AddToCartResponseModel response = new UserApiSteps().addProductToCart(validProduct, 1, cookies);
 
         assertThat(response.getStatusCode()).isEqualTo("inStock");
         assertThat(response.getQuantityAdded()).isGreaterThanOrEqualTo(1);
@@ -54,7 +54,7 @@ public class CartApiTests extends TestBaseApi {
     @DisplayName("Проверка добавления несуществующего товара в корзину")
     public void addBadProductToCartTest() {
 
-        AddToCartResponseModel response = new TestStepsApi().addBadProductToCart(invalidProduct, 1, cookies);
+        AddToCartResponseModel response = new UserApiSteps().addBadProductToCart(invalidProduct, 1, cookies);
 
         assertThat(response.getErrors()).isNotNull();
         assertThat(response.getErrors().size()).isGreaterThan(0);
@@ -69,7 +69,7 @@ public class CartApiTests extends TestBaseApi {
     @DisplayName("Проверка очистки корзины")
     public void clearCartTest() {
 
-        TestStepsApi testStepsApi = new TestStepsApi();
+        UserApiSteps testStepsApi = new UserApiSteps();
         testStepsApi.clearCart(cookies);
 
     }

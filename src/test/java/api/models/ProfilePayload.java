@@ -2,7 +2,7 @@ package api.models;
 import lombok.Data;
 
 @Data
-public class ProfileApiModel {
+public class ProfilePayload {
     private String email;
     private String fullName;
     private String gender;

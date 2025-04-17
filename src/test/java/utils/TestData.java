@@ -11,8 +11,8 @@ public class TestData {
     public static final String email1 = System.getProperty("email", "wrongemail@gmail.com");
     public static final String password1 = System.getProperty("password", "BestLife2024");
 
-    public static final String email = TestBase.credentialsConfig.username();
-    public static final String password = TestBase.credentialsConfig.password();
+    public static final String email = TestBase.credentialsConfig.getEmail();
+    public static final String password = TestBase.credentialsConfig.getPassword();
 
     public static String getTestData(String product) {
         File file = new File("src/test/resources/data/test.data");
