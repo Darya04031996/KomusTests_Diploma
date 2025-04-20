@@ -19,6 +19,7 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class TestBase {
     static WebDriverConfig config = ConfigFactory.create(WebDriverConfig.class, System.getProperties());
     public static CredentialsConfig credentialsConfig = ConfigFactory.create(CredentialsConfig.class, System.getProperties());
+
     @BeforeAll
     static void setUpBrowserConfiguration() {
 
@@ -27,6 +28,7 @@ public class TestBase {
         Configuration.browserVersion = config.getBrowserVersion();
         Configuration.pageLoadStrategy = config.getLoadStrategy();
         Configuration.browserSize = config.getBrowserSize();
+        Configuration.timeout = 10000;
 
         if (config.isRemote()) {
             Configuration.remote = config.getRemoteUrl();
@@ -41,11 +43,12 @@ public class TestBase {
     }
 
     @BeforeEach
-    void addListener () {
+    void addListener() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
+
     @AfterEach
-    void addAttachments () {
+    void addAttachments() {
         Attach.screenshotAs("Last screenshot");
         Attach.addVideo();
         if (!config.getBrowserName().equalsIgnoreCase("firefox")) {

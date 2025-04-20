@@ -45,9 +45,8 @@ public class ProductPage {
     }
 
     @Step("Проверить, что товар '{productId}' добавлен в Избранное")
-    public ProductPage checkProductInFavorites(String productId) {
+    public void checkProductInFavorites(String productId) {
         $("a[href*='/p/" + productId + "/']").shouldBe(visible);
-        return this;
     }
 
     @Step("Нажать X у товара, чтобы удалить из Избранного")
