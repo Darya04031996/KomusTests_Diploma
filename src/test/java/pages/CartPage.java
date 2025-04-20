@@ -10,19 +10,18 @@ public class CartPage {
     private final SelenideElement productItem = $(".product-card-list-slim--cart-item");
     private final SelenideElement increaseQuantityButton = $(".v-counter__arrow-button--plus");
     private final SelenideElement decreaseQuantityButton = $(".v-counter__arrow-button--minus");
-    private final SelenideElement removeProductButton = $(".remove-icon");
+    private final SelenideElement removeProductButton = $(".cart-product-item__remove button.product-remove-icon");
     private final SelenideElement emptyCartMessage = $(".cart__title--empty");
     private final SelenideElement productQuantityInput = $(".product-card-list-slim--cart-item .v-counter__input");
 
     @Step("Проверить, что добавленный товар '{productId}' в корзине")
-    public CartPage verifyProductInCart(String productId) {
+    public void verifyProductInCart(String productId) {
         productItem.shouldBe(visible).shouldHave(text(productId));
-        return this;
     }
+
     @Step("Проверить, что количество товара в корзине равно {expectedQty}")
-    public CartPage verifyProductQuantity(int expectedQty) {
+    public void verifyProductQuantity(int expectedQty) {
         productQuantityInput.shouldHave(value(String.valueOf(expectedQty)));
-        return this;
     }
 
 
@@ -46,9 +45,8 @@ public class CartPage {
     }
 
     @Step("Проверить, что корзина пуста")
-    public CartPage verifyCartIsEmpty() {
+    public void verifyCartIsEmpty() {
         emptyCartMessage.shouldBe(visible);
-        return this;
     }
 
 }

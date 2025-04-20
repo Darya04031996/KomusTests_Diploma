@@ -9,15 +9,15 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class ProductPage {
 
-    // Локаторы
     private final SelenideElement productTitle = $("h1.product-details-page__title");
     private final SelenideElement productSku = $(".qa-vendor-code");
     private final SelenideElement addToFavoritesButton = $("a.add-to-favorite__link");
     private final SelenideElement cartButton = $(".js-product-add.js-gtm--addtocart");
-    private final SelenideElement deleteFromFavoritesButton = $(".v-button-icon.remove-icon");
+    private final SelenideElement deleteFromFavoritesButton = $("button.product-remove-icon");
     private final SelenideElement emptyFavoritesMessage = $("h6.page-empty__title");
     private final SelenideElement goToFavoritesButton = $("a.favorite-counter__link");
     private final SelenideElement addedToCartButton = $("input.js-edit-count-in-cart[value='Изменить']");
+
 
     @Step("Открыть страницу товара '{productId}'")
     public ProductPage openPage(String productId) {
@@ -32,13 +32,11 @@ public class ProductPage {
         return this;
     }
 
-
     @Step("Нажать на сердечко у товара, чтобы добавить товар в Избранное")
     public ProductPage addToFavorites() {
         addToFavoritesButton.click();
         return this;
     }
-
 
     @Step("Нажать на сердечко, чтобы открыть список избранных товаров")
     public ProductPage openFavoritesList() {
@@ -46,48 +44,38 @@ public class ProductPage {
         return this;
     }
 
-
     @Step("Проверить, что товар '{productId}' добавлен в Избранное")
     public ProductPage checkProductInFavorites(String productId) {
         $("a[href*='/p/" + productId + "/']").shouldBe(visible);
         return this;
     }
 
-
-    @Step("Нажать X у товара '{productId}', чтобы удалить из Избранного")
+    @Step("Нажать X у товара, чтобы удалить из Избранного")
     public ProductPage removeFromFavorites() {
         deleteFromFavoritesButton.click();
         return this;
     }
 
     @Step("Проверить, что список избранных товаров пуст")
-    public ProductPage checkFavoritesIsEmpty() {
+    public void checkFavoritesIsEmpty() {
         emptyFavoritesMessage.shouldHave(text("Здесь пока ничего нет"));
-        return this;
     }
 
-
+    @Step("Добавить товар в корзину")
     public ProductPage addToCart() {
-
         cartButton.scrollIntoView(true);
-
-
         cartButton.shouldBe(visible, enabled);
-
-
         try {
             cartButton.click();
         } catch (ElementClickInterceptedException e) {
             executeJavaScript("arguments[0].click();", cartButton);
         }
-
         return this;
     }
 
     @Step("Открыть корзину")
-    public ProductPage openCart() {
+    public void openCart() {
         open("/cart");
-        return this;
     }
 
     @Step("Проверить, что кнопка изменилась на 'Изменить'")
@@ -95,6 +83,5 @@ public class ProductPage {
         addedToCartButton.shouldBe(visible);
         return this;
     }
-
 }
 

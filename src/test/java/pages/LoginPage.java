@@ -38,9 +38,10 @@ public class LoginPage extends TestBase {
         loginButton.click();
         return this;
     }
+
     @Step("Проверить, что пользователь залогинен как Дарья Михайловна Мельгунова")
     public void checkUserIsLoggedIn() {
-        $(".main-info-profile__name").shouldBe(visible);
+        loginForm.shouldBe(visible);
         loginForm.shouldHave(text("Дарья Михайловна Мельгунова"));
 
     }
@@ -50,6 +51,7 @@ public class LoginPage extends TestBase {
         passwordErrorMessage.shouldHave(text("Неверно введен пароль"));
 
     }
+
     @Step("Проверить, что отобразилось уведомление 'Пользователь с данным E-mail не найден. Проверьте адрес'")
     public void checkEmailError() {
         emailErrorMessage.shouldHave(text("Пользователь с данным E-mail не найден. Проверьте адрес"));
@@ -60,19 +62,22 @@ public class LoginPage extends TestBase {
         pageTitle.shouldHave(text("Вход"));
 
     }
+
     @Step("Проверить, что под полем Логин - валидационное сообщение 'Это поле необходимо заполнить'")
     public void checkUserIsNotLoggedInEmptyLogin() {
         emailField.setValue("");
         loginButton.click();
         emailErrorMessage.shouldHave(text("Это поле необходимо заполнить"));
     }
+
     @Step("Проверить, что под полем Пароль - валидационное сообщение 'Это поле необходимо заполнить'")
-    public LoginPage checkUserIsNotLoggedInEmptyPassword() {
-    passwordField.setValue("");
-    loginButton.click();
-    passwordErrorMessage.shouldHave(text("Это поле необходимо заполнить"));
-    return this;
+    public void checkUserIsNotLoggedInEmptyPassword() {
+        passwordField.setValue("");
+        loginButton.click();
+        passwordErrorMessage.shouldHave(text("Это поле необходимо заполнить"));
+
     }
+
     @Step("Проверить, что капча появилась после нескольких неверных попыток")
     public void verifyCaptchaAppears() {
         captchaImage.shouldBe(visible);

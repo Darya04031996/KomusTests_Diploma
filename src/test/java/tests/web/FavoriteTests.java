@@ -25,7 +25,9 @@ public class FavoriteTests extends TestBase {
         loginPage.openPage()
                 .loginWithEmailAndPassword(TestData.email, TestData.password)
                 .checkUserIsLoggedIn();
+
     }
+
     @Test
     @Owner("Мельгунова Дарья")
     @Feature("Реализация списка избранных товаров пользователя")
@@ -38,6 +40,7 @@ public class FavoriteTests extends TestBase {
                 .openFavoritesList()
                 .checkProductInFavorites(product);
     }
+
     @Test
     @Owner("Мельгунова Дарья")
     @Feature("Реализация списка избранных товаров пользователя")

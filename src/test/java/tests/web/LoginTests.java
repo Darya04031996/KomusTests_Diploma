@@ -4,6 +4,8 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import pages.LoginPage;
 import utils.TestData;
 
@@ -88,5 +90,21 @@ public class LoginTests extends TestBase {
             loginPage.loginWithEmailAndPassword(TestData.email, TestData.password1);
         }
         loginPage.verifyCaptchaAppears();
+    }
+
+    @ParameterizedTest(name = "Неверный логин для Email {0} и пароля {1}")
+    @CsvSource({
+            "wrongemail@example.com, correctpassword",
+            "correctemail@example.com, wrongpassword",
+            "'', correctpassword",
+            "correctemail@example.com, ''"
+    })
+    @Owner("Мельгунова Дарья")
+    @Feature("Реализация логина на сайте")
+    @Story("UI: Неуспешный логин")
+    @DisplayName("Проверка неуспешного входа с некорректными Email и/или Паролем")
+    void incorrectLoginTest(String email, String password) {
+        loginPage.loginWithEmailAndPassword(email, password);
+        loginPage.verifyUserStayedOnLoginPage();
     }
 }
