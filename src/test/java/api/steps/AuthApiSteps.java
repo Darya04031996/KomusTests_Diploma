@@ -1,10 +1,8 @@
 package api.steps;
 
-import api.models.LoginRequestModel;
 import api.BaseSpec;
-
+import api.models.LoginRequestModel;
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 import tests.api.TestBaseApi;
 
 import java.util.Map;
@@ -18,7 +16,8 @@ public class AuthApiSteps extends TestBaseApi {
     @Step("Авторизация пользователя с email: {email}")
     public Map<String, String> login(String username, String password) {
         LoginRequestModel loginRequest = new LoginRequestModel(username, password);
-        Response response = given(BaseSpec.requestSpec)
+
+        return given(BaseSpec.requestSpec)
                 .contentType("application/json")
                 .body(loginRequest)
                 .when()
@@ -26,8 +25,6 @@ public class AuthApiSteps extends TestBaseApi {
                 .then()
                 .spec(BaseSpec.responseSpec(200))
                 .extract()
-                .response();
-
-        return response.getCookies();
+                .response().getCookies();
     }
 }

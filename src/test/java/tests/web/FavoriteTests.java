@@ -1,15 +1,15 @@
 package tests.web;
 
-import org.junit.jupiter.api.BeforeEach;
-import utils.TestData;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 import pages.ProductPage;
+import utils.TestData;
 
 import static utils.TestData.getTestData;
 

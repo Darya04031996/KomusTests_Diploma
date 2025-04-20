@@ -1,12 +1,12 @@
 package api.steps;
-import api.models.*;
+
 import api.BaseSpec;
+import api.models.*;
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
 
 import java.util.Map;
 
-import static api.BaseSpec.*;
+import static api.BaseSpec.requestSpec;
 import static io.restassured.RestAssured.given;
 
 public class UserApiSteps {
@@ -19,17 +19,16 @@ public class UserApiSteps {
 
     @Step("Получить данные профиля")
     public ProfilePayload getProfile(Map<String, String> cookies) {
-        Response response = given(BaseSpec.requestSpec)
+        return given()
+                .spec(requestSpec)
                 .cookies(cookies)
                 .when()
                 .get(PROFILE_URL)
                 .then()
                 .spec(BaseSpec.responseSpec(200))
                 .extract()
-                .response();
-
-        ProfileResponseModel profileResponse = response.as(ProfileResponseModel.class);
-        return profileResponse.getPayload();
+                .as(ProfileResponseModel.class)
+                .getPayload();
     }
 
     @Step("Добавить товар '{productCode}' в корзину с количеством {quantity}")
@@ -98,18 +97,19 @@ public class UserApiSteps {
                 .extract().as(FavoriteResponseModel.class)
                 .getFavoritesCount();
     }
+
     @Step("Очистить корзину")
     public void clearCart(Map<String, String> cookies) {
-         given()
+        given()
                 .baseUri("https://komus.ru")
                 .spec(requestSpec)
                 .cookies(cookies)
                 .when()
                 .get(CART_CLEAR_URL)
                 .then()
-                 .spec(BaseSpec.responseSpec(200));
+                .spec(BaseSpec.responseSpec(200));
     }
-    }
+}
 
 
 

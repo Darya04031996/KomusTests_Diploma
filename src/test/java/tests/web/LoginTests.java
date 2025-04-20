@@ -3,13 +3,17 @@ package tests.web;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import pages.LoginPage;
 import utils.TestData;
 
-import static utils.TestData.*;
+import static utils.TestData.email1;
+import static utils.TestData.password1;
 
 
 @DisplayName("UI тесты на авторизацию")

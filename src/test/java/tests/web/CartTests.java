@@ -28,6 +28,7 @@ public class CartTests extends TestBase {
             cartPage.verifyCartIsEmpty();
         }
     }
+
     @Test
     @Owner("Мельгунова Дарья")
     @Feature("Реализация корзины пользователя с товарами")
@@ -72,6 +73,7 @@ public class CartTests extends TestBase {
                 .decreaseProductQuantity()
                 .verifyProductQuantity(1);
     }
+
     @Test
     @Owner("Мельгунова Дарья")
     @Feature("Реализация корзины пользователя с товарами")
