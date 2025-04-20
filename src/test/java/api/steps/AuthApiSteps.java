@@ -17,10 +17,7 @@ public class AuthApiSteps extends TestBaseApi {
 
     @Step("Авторизация пользователя с email: {email}")
     public Map<String, String> login(String username, String password) {
-        LoginRequestModel loginRequest = new LoginRequestModel();
-        loginRequest.setUsername(username);
-        loginRequest.setPassword(password);
-
+        LoginRequestModel loginRequest = new LoginRequestModel(username, password);
         Response response = given(BaseSpec.requestSpec)
                 .contentType("application/json")
                 .body(loginRequest)

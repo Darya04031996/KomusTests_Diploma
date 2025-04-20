@@ -7,6 +7,7 @@ import api.steps.UserApiSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -46,8 +47,15 @@ public class FavoritesApiTests extends TestBaseApi {
     @DisplayName("Проверка получения списка избранных товаров")
     public void getFavoriteProductsTest() {
         FavoriteListResponseModel response = new UserApiSteps().getFavoriteProducts(cookies);
-        assertThat(response).isNotNull();
-        assertThat(response.getPayload().get(0).getCode()).isNotEmpty();
+        SoftAssertions.assertSoftly(softly -> {
+            softly.assertThat(response)
+                    .as("Ответ на получение списка не должен быть null")
+                    .isNotNull();
+
+            softly.assertThat(response.getPayload().get(0).getCode())
+                    .as("Код продукта в избранном не должен быть пустым")
+                    .isNotEmpty();
+        });
     }
 
     @Test

@@ -1,17 +1,15 @@
 package tests.api;
 
 import api.models.ProfilePayload;
-
 import api.steps.UserApiSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("API тесты на проверку данных профиля пользователя")
 @Tag("API")
@@ -22,17 +20,39 @@ public class ProfileApiTest extends TestBaseApi {
     @Feature("Профиль пользователя")
     @Story("API: Получение и проверка данных профиля пользователя")
     @DisplayName("Проверка данных профиля пользователя")
-    public void testGetProfile(){
+    public void testGetProfile() {
 
         ProfilePayload profile = new UserApiSteps().getProfile(cookies);
 
 
-        assertEquals("darya.melgunova@gmail.com", profile.getEmail(), "Email не совпадает");
-        assertEquals("Дарья Михайловна Мельгунова", profile.getFullName(), "ФИО не совпадает");
-        assertEquals("FEMALE", profile.getGender(), "Пол не совпадает");
-        assertNotNull(profile.getCompanyInfo(), "Информация о компании не должна быть null");
-        assertEquals("02036457", profile.getCompanyInfo().getUid(), "UID компании не совпадает");
-        assertEquals("ООО Судо", profile.getCompanyInfo().getName(), "Название компании не совпадает");
-        assertEquals(false, profile.getCompanyInfo().getVip(), "VIP статус компании не совпадает");
+        SoftAssertions.assertSoftly(softly -> {
+            softly.assertThat(profile.getEmail())
+                    .as("Email не совпадает")
+                    .isEqualTo("darya.melgunova@gmail.com");
+
+            softly.assertThat(profile.getFullName())
+                    .as("ФИО не совпадает")
+                    .isEqualTo("Дарья Михайловна Мельгунова");
+
+            softly.assertThat(profile.getGender())
+                    .as("Пол не совпадает")
+                    .isEqualTo("FEMALE");
+
+            softly.assertThat(profile.getCompanyInfo())
+                    .as("Информация о компании не должна быть null")
+                    .isNotNull();
+
+            softly.assertThat(profile.getCompanyInfo().getUid())
+                    .as("UID компании не совпадает")
+                    .isEqualTo("02036457");
+
+            softly.assertThat(profile.getCompanyInfo().getName())
+                    .as("Название компании не совпадает")
+                    .isEqualTo("ООО Судо");
+
+            softly.assertThat(profile.getCompanyInfo().getVip())
+                    .as("VIP статус компании не совпадает")
+                    .isFalse();
+        });
     }
 }
